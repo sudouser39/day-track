@@ -597,6 +597,31 @@
     .sidebar-spacer { flex: 1; }
     .sidebar-footer { padding: 12px 10px 3px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 5px; color: var(--muted); font-size: 8px; letter-spacing: .08em; font-weight: 800; }
     .sidebar-footer small { color: #9aa7b5; font-size: 7px; font-weight: 600; }
+    .sidebar-account { position: relative; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); }
+    .sidebar-account-trigger { width: 100%; min-width: 0; display: flex; align-items: center; gap: 9px; padding: 8px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: var(--ink); text-align: left; cursor: pointer; transition: background .14s ease, border-color .14s ease; }
+    .sidebar-account-trigger:hover, .sidebar-account.is-open .sidebar-account-trigger { background: var(--canvas); border-color: var(--line); }
+    .sidebar-account-avatar { width: 34px; height: 34px; flex: 0 0 34px; display: grid; place-items: center; border-radius: 50%; background: var(--blue-soft); color: var(--blue); font-size: 10px; font-weight: 850; letter-spacing: .02em; }
+    .sidebar-account-copy { display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.25; }
+    .sidebar-account-copy strong { color: var(--navy); font-size: 10px; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .sidebar-account-copy small { margin-top: 4px; color: var(--muted); font-size: 7px; font-weight: 750; letter-spacing: .08em; }
+    .sidebar-account-chevron { color: var(--muted); font-size: 13px; line-height: 1; transition: transform .14s ease; }
+    .sidebar-account.is-open .sidebar-account-chevron { transform: rotate(180deg); }
+    .sidebar-account-menu { position: absolute; z-index: 80; left: 0; right: 0; bottom: calc(100% + 8px); display: grid; gap: 3px; padding: 6px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); box-shadow: 0 12px 34px rgba(15,23,42,.16); }
+    .sidebar-account-menu[hidden] { display: none !important; }
+    .sidebar-account-menu button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px; border: 0; border-radius: 7px; background: transparent; color: var(--ink); text-align: left; font-size: 10px; font-weight: 700; cursor: pointer; }
+    .sidebar-account-menu button:hover { background: var(--canvas); color: var(--blue); }
+    .sidebar-account-menu .menu-item-icon { width: 17px; flex: 0 0 17px; text-align: center; font-size: 13px; }
+    .sidebar-account-menu .menu-divider { height: 1px; margin: 3px 5px; background: var(--line); }
+    .sidebar-account-menu button.menu-logout { color: var(--red); }
+    .sidebar-account-menu button.menu-logout:hover { background: var(--red-soft); }
+    .profile-feedback { display: none; margin: 0 0 14px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; font-size: 10px; line-height: 1.45; }
+    .profile-feedback.show { display: block; }
+    .profile-feedback[data-kind="error"] { color: var(--red); background: var(--red-soft); border-color: rgba(189,69,69,.22); }
+    .profile-feedback[data-kind="success"] { color: var(--green); background: var(--green-soft); border-color: rgba(24,122,88,.22); }
+    .profile-modal { width: min(560px, 100%); }
+    .profile-modal .modal-body { padding-top: 16px; }
+    .profile-modal-note { margin: 0 0 15px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+    .profile-modal .profile-section-title { grid-column: 1 / -1; margin: 7px 0 -3px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 8px; font-weight: 850; letter-spacing: .1em; }
     .topbar { position: sticky; top: 0; z-index: 30; min-height: 62px; padding: 10px 22px; background: var(--panel); color: var(--ink); border-bottom: 1px solid var(--line); }
     .topbar-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
     .sidebar-toggle { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 7px; background: transparent; color: var(--muted); font-size: 16px; display: grid; place-items: center; }
@@ -674,7 +699,19 @@
     :root[data-theme="dark"] .nav-item.active { color: #edf2f8; }
     :root[data-theme="dark"] .nav-item:hover { background: #151d28; color: #edf2f8; }
     :root[data-theme="dark"] .nav-item.active { background: #1b2b4a; color: #a9bcff; }
-    :root[data-theme="dark"] .sidebar-footer { border-top-color: #28313d; }
+    :root[data-theme="dark"] .sidebar-footer,
+    :root[data-theme="dark"] .sidebar-account { border-top-color: #28313d; }
+    :root[data-theme="dark"] .sidebar-account-trigger:hover,
+    :root[data-theme="dark"] .sidebar-account.is-open .sidebar-account-trigger { background: #151d28; border-color: #303b49; }
+    :root[data-theme="dark"] .sidebar-account-avatar { background: #1b2b4a; color: #a9bcff; }
+    :root[data-theme="dark"] .sidebar-account-copy strong { color: #edf2f8; }
+    :root[data-theme="dark"] .sidebar-account-menu { background: #111821; border-color: #303b49; box-shadow: 0 12px 34px rgba(0,0,0,.35); }
+    :root[data-theme="dark"] .sidebar-account-menu button { color: #e3e9f1; }
+    :root[data-theme="dark"] .sidebar-account-menu button:hover { background: #1b2b4a; color: #b7c7ff; }
+    :root[data-theme="dark"] .sidebar-account-menu .menu-divider,
+    :root[data-theme="dark"] .profile-modal .profile-section-title { background: transparent; border-color: #28313d; }
+    :root[data-theme="dark"] .profile-feedback[data-kind="error"] { color: #f39aa0; background: #342027; }
+    :root[data-theme="dark"] .profile-feedback[data-kind="success"] { color: #8de0ba; background: #142d25; }
     :root[data-theme="dark"] .topbar { background: #0f141b; border-bottom-color: #28313d; }
     :root[data-theme="dark"] .sidebar-toggle { border-color: #303b49; color: #a8b4c3; }
     :root[data-theme="dark"] .sidebar-toggle:hover { background: #17212d; color: #edf2f8; }
@@ -697,7 +734,12 @@
       .sidebar-collapsed .sidebar-section-label,
       .sidebar-collapsed .nav-text,
       .sidebar-collapsed .sidebar-footer span,
-      .sidebar-collapsed .sidebar-footer small { display: none; }
+      .sidebar-collapsed .sidebar-footer small,
+      .sidebar-collapsed .sidebar-account-copy,
+      .sidebar-collapsed .sidebar-account-chevron { display: none; }
+      .sidebar-collapsed .sidebar-account { padding-top: 10px; }
+      .sidebar-collapsed .sidebar-account-trigger { justify-content: center; padding: 7px 3px; }
+      .sidebar-collapsed .sidebar-account-menu { left: calc(100% + 9px); right: auto; bottom: 0; width: 190px; }
       .sidebar-collapsed .nav-item { justify-content: center; padding-left: 6px; padding-right: 6px; }
     }
     @media (max-width: 980px) {
@@ -1431,10 +1473,192 @@
       #otFormsPage .ot-forms-frame-shell { height: 1660px; min-height: 1660px; }
     }
 
+  
+
+    /* Account access and separate superuser workspace. */
+    .auth-screen {
+      min-height: 100vh; display: grid; place-items: center; padding: 28px 16px;
+      background: radial-gradient(900px 500px at 10% 0%, rgba(53,111,197,.12), transparent 65%), var(--canvas);
+    }
+    .auth-wrap { width: min(100%, 440px); }
+    .auth-brand { display:flex; align-items:center; justify-content:center; gap:11px; margin-bottom:20px; }
+    .auth-brand-mark { width:42px; height:42px; display:grid; place-items:center; border-radius:11px; color:#fff; background:#356fc5; font-size:14px; font-weight:900; letter-spacing:-.04em; }
+    .auth-brand-copy strong { display:block; color:var(--navy); font-size:14px; letter-spacing:.12em; }
+    .auth-brand-copy span { display:block; color:var(--muted); margin-top:3px; font-size:9px; letter-spacing:.11em; }
+    .auth-card { background:var(--panel); border:1px solid var(--line); border-radius:15px; padding:25px; box-shadow:0 18px 55px rgba(30,55,80,.09); }
+    .auth-heading { margin:0; color:var(--navy); font-size:21px; letter-spacing:-.035em; }
+    .auth-subtitle { color:var(--muted); font-size:11px; line-height:1.55; margin:7px 0 19px; }
+    .auth-tabs { display:grid; grid-template-columns:1fr 1fr; gap:5px; padding:4px; margin-bottom:18px; border:1px solid var(--line); border-radius:9px; background:var(--canvas); }
+    .auth-tab { border:0; border-radius:6px; padding:9px; color:var(--muted); background:transparent; font-size:11px; font-weight:800; }
+    .auth-tab.active { color:var(--blue); background:var(--panel); box-shadow:0 1px 4px rgba(20,40,63,.10); }
+    .auth-form { display:grid; gap:13px; }
+    .auth-form .form-field label { color:var(--muted); font-size:9px; }
+    .auth-form .control { min-height:41px; font-size:12px; }
+    .auth-submit { width:100%; min-height:42px; margin-top:3px; }
+    .auth-feedback { display:none; padding:10px 11px; border:1px solid var(--line); border-radius:8px; margin:0 0 14px; font-size:10px; line-height:1.5; }
+    .auth-feedback.show { display:block; }
+    .auth-feedback[data-kind="error"] { color:var(--red); background:var(--red-soft); border-color:rgba(189,69,69,.2); }
+    .auth-feedback[data-kind="success"] { color:var(--green); background:var(--green-soft); border-color:rgba(24,122,88,.2); }
+    .auth-security-note { color:var(--muted); font-size:9px; line-height:1.55; text-align:center; margin:15px 4px 0; }
+    .auth-security-note strong { color:var(--navy); }
+    .admin-shell { min-height:100vh; background:var(--canvas); }
+    .admin-topbar { min-height:65px; padding:12px clamp(16px,3vw,42px); display:flex; align-items:center; justify-content:space-between; gap:15px; background:var(--panel); border-bottom:1px solid var(--line); }
+    .admin-brand { display:flex; align-items:center; gap:10px; min-width:0; }
+    .admin-brand-mark { width:36px; height:36px; display:grid; place-items:center; flex:0 0 36px; border-radius:9px; background:var(--blue-soft); color:var(--blue); font-size:12px; font-weight:900; }
+    .admin-brand-copy strong { display:block; color:var(--navy); font-size:12px; letter-spacing:.1em; }
+    .admin-brand-copy small { display:block; margin-top:3px; color:var(--muted); font-size:8px; letter-spacing:.08em; }
+    .admin-top-actions { display:flex; align-items:center; justify-content:flex-end; gap:12px; }
+    #adminThemeToggle { color:var(--ink); background:var(--panel); border-color:var(--line); }
+    #adminThemeToggle:hover { background:var(--canvas); border-color:#cbd5e1; }
+    .admin-identity { text-align:right; min-width:0; }
+    .admin-identity strong { display:block; color:var(--navy); font-size:10px; }
+    .admin-identity small { display:block; color:var(--muted); font-size:8px; margin-top:3px; }
+    .admin-main { width:min(1320px,100%); margin:0 auto; padding:30px clamp(14px,2.5vw,30px) 48px; }
+    .admin-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:20px; }
+    .admin-eyebrow { margin:0 0 6px; color:var(--blue); font-size:9px; font-weight:850; letter-spacing:.13em; }
+    .admin-heading h1 { margin:0; color:var(--navy); font-size:25px; letter-spacing:-.04em; }
+    .admin-heading p { margin:7px 0 0; max-width:650px; color:var(--muted); font-size:11px; line-height:1.55; }
+    .admin-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:11px; margin-bottom:15px; }
+    .admin-stat { min-width:0; padding:16px; border:1px solid var(--line); border-radius:10px; background:var(--panel); }
+    .admin-stat-label { color:var(--muted); font-size:8px; font-weight:850; letter-spacing:.08em; }
+    .admin-stat-value { color:var(--navy); font-size:25px; font-weight:850; letter-spacing:-.04em; margin-top:7px; }
+    .admin-panel { border:1px solid var(--line); border-radius:11px; background:var(--panel); overflow:hidden; }
+    .admin-panel-head { padding:16px 17px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; border-bottom:1px solid var(--line); }
+    .admin-panel-head h2 { margin:0; color:var(--navy); font-size:13px; }
+    .admin-panel-head p { margin:4px 0 0; color:var(--muted); font-size:9px; }
+    .admin-filters { display:flex; align-items:center; gap:8px; }
+    .admin-filters .control { min-height:34px; font-size:10px; }
+    .admin-search { width:215px; max-width:48vw; }
+    .admin-table-wrap { overflow-x:auto; }
+    .admin-table { width:100%; min-width:850px; border-collapse:collapse; }
+    .admin-table th { padding:11px 13px; text-align:left; background:var(--canvas); color:var(--muted); font-size:8px; font-weight:850; letter-spacing:.09em; text-transform:uppercase; white-space:nowrap; }
+    .admin-table td { padding:12px 13px; border-top:1px solid var(--line); color:var(--ink); font-size:10px; vertical-align:middle; }
+    .admin-user-name { display:block; color:var(--navy); font-weight:800; font-size:10px; }
+    .admin-user-handle { display:block; color:var(--muted); margin-top:3px; font-size:9px; }
+    .admin-muted { color:var(--muted) !important; }
+    .status-pill { display:inline-flex; align-items:center; gap:5px; border-radius:999px; padding:4px 7px; font-size:8px; font-weight:850; text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; }
+    .status-pill.pending { color:var(--amber); background:var(--amber-soft); }
+    .status-pill.approved { color:var(--green); background:var(--green-soft); }
+    .status-pill.denied { color:var(--red); background:var(--red-soft); }
+    .status-pill.online { color:var(--green); background:var(--green-soft); }
+    .status-pill.offline { color:var(--muted); background:var(--canvas); }
+    .admin-actions { display:flex; flex-wrap:wrap; gap:6px; }
+    .admin-actions .btn { white-space:nowrap; }
+    .admin-empty { padding:38px 20px; text-align:center; color:var(--muted); font-size:10px; }
+    .admin-empty strong { display:block; color:var(--navy); font-size:12px; margin-bottom:5px; }
+    .admin-footnote { color:var(--muted); font-size:9px; line-height:1.55; margin:12px 2px 0; }
+    .logout-btn { min-height:30px; padding:6px 9px; border:1px solid var(--line); border-radius:7px; background:var(--panel); color:var(--muted); font-size:9px; font-weight:800; }
+    .logout-btn:hover { color:var(--red); border-color:rgba(189,69,69,.35); background:var(--red-soft); }
+    #appShell.hidden, #adminShell.hidden, #authScreen.hidden { display:none !important; }
+    @media (max-width:760px) {
+      .auth-card { padding:21px 18px; }
+      .admin-topbar { align-items:flex-start; }
+      .admin-top-actions { gap:8px; }
+      .admin-identity { display:none; }
+      .admin-main { padding-top:22px; }
+      .admin-heading { align-items:flex-start; flex-direction:column; }
+      .admin-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .admin-panel-head { align-items:flex-start; flex-direction:column; }
+      .admin-filters { width:100%; }
+      .admin-search { width:auto; flex:1; max-width:none; }
+    }
+    @media (max-width:420px) {
+      .auth-screen { padding:18px 12px; }
+      .auth-heading { font-size:19px; }
+      .admin-topbar { padding:11px 12px; }
+      .admin-brand-copy small { display:none; }
+      .admin-stats { gap:8px; }
+      .admin-stat { padding:12px; }
+      .admin-stat-value { font-size:21px; }
+      .admin-filters { flex-direction:column; align-items:stretch; }
+      .admin-filters .control { width:100%; max-width:none; }
+    }
+    :root[data-theme="dark"] .auth-card,
+    :root[data-theme="dark"] .admin-stat,
+    :root[data-theme="dark"] .admin-panel { background:var(--panel); border-color:var(--line); box-shadow:none; }
+    :root[data-theme="dark"] .auth-tabs { background:#151c25; border-color:var(--line); }
+    :root[data-theme="dark"] .auth-tab.active { background:#202a36; box-shadow:none; }
+    :root[data-theme="dark"] .admin-topbar { background:#151b23; border-color:var(--line); }
+    :root[data-theme="dark"] .admin-table th { background:#151c25; }
+    :root[data-theme="dark"] .admin-table td { border-color:var(--line); }
+    :root[data-theme="dark"] .logout-btn { background:#171f29; border-color:var(--line); color:var(--ink); }
+    :root[data-theme="dark"] #adminThemeToggle { color:#e6edf5; background:#2b333d; border-color:#414c58; }
+    :root[data-theme="dark"] #adminThemeToggle:hover { background:#36414d; border-color:#526070; }
+
+  
+    /* Clean full-screen form presentation: only the paper sits above the blurred app. */
+    #daytrackFormOverlay {
+      display:none; position:fixed; inset:0; z-index:1000000;
+      width:100vw; height:100vh; height:100dvh;
+      align-items:center; justify-content:center; padding:0;
+      overflow:hidden; overscroll-behavior:none;
+      background:rgba(4,9,17,.52);
+      -webkit-backdrop-filter:blur(14px) saturate(72%);
+      backdrop-filter:blur(14px) saturate(72%);
+    }
+    #daytrackFormOverlay.is-open { display:flex; }
+    #daytrackFormOverlay .dt-form-viewer {
+      position:absolute; inset:0; display:flex; flex-direction:column;
+      width:100%; height:100%; max-width:none; max-height:none; min-height:0;
+      overflow:hidden; border:0; border-radius:0; background:transparent; box-shadow:none;
+    }
+    /* No title bar or close button: the form itself is the only foreground element. */
+    #daytrackFormOverlay .dt-form-viewer-toolbar { display:none !important; }
+    #daytrackFormOverlay .dt-form-viewer-stage {
+      flex:1 1 auto; width:100%; height:100%; min-height:0; min-width:0;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden; padding:10px; overscroll-behavior:none;
+      scrollbar-width:none; touch-action:pan-x pan-y;
+    }
+    #daytrackFormOverlay .dt-form-viewer-stage::-webkit-scrollbar { display:none; }
+    #daytrackFormOverlay .dt-form-paper-frame { position:relative; flex:0 0 auto; overflow:hidden; }
+    #daytrackFormOverlay .dt-form-paper-frame > .paper {
+      position:absolute; top:0; left:0; margin:0 !important; transform-origin:top left;
+      background:#fff !important; color:#111 !important; box-shadow:0 14px 60px rgba(0,0,0,.34);
+    }
+    html.dt-form-overlay-open, body.dt-form-overlay-open { overflow:hidden !important; height:100%; }
+    @media(max-width:700px) {
+      #daytrackFormOverlay .dt-form-viewer-stage { padding:6px; }
+    }
+
   </style>
 </head>
 <body>
-<div class="app app-layout" id="appShell">
+
+<section class="auth-screen" id="authScreen">
+  <div class="auth-wrap">
+    <div class="auth-brand">
+      <div class="auth-brand-mark">DT</div>
+      <div class="auth-brand-copy"><strong>DAYTRACK</strong><span>PERSONAL WORKSPACE</span></div>
+    </div>
+    <div class="auth-card">
+      <p class="eyebrow">ACCOUNT ACCESS</p>
+      <h1 class="auth-heading" id="authHeading">Sign in to Daytrack</h1>
+      <p class="auth-subtitle" id="authSubtitle">Access your personal attendance, schedule, journal, and OT tools.</p>
+      <div class="auth-feedback" id="authFeedback" role="status" aria-live="polite"></div>
+      <div class="auth-tabs" role="tablist" aria-label="Account access">
+        <button class="auth-tab active" id="authLoginTab" type="button" role="tab" aria-selected="true">Sign In</button>
+        <button class="auth-tab" id="authRegisterTab" type="button" role="tab" aria-selected="false">Create Account</button>
+      </div>
+      <form class="auth-form" id="loginForm">
+        <div class="form-field"><label for="loginUsername">Username</label><input class="control" id="loginUsername" name="username" type="text" autocomplete="username" maxlength="24" required placeholder="Enter your username"/></div>
+        <div class="form-field"><label for="loginPassword">Password</label><input class="control" id="loginPassword" name="password" type="password" autocomplete="current-password" required placeholder="Enter your password"/></div>
+        <button class="btn btn-primary auth-submit" id="loginSubmit" type="submit">Sign In</button>
+      </form>
+      <form class="auth-form hidden" id="registerForm">
+        <div class="form-field"><label for="registerName">Full name</label><input class="control" id="registerName" name="name" type="text" autocomplete="name" maxlength="70" required placeholder="Your name"/></div>
+        <div class="form-field"><label for="registerUsername">Username</label><input class="control" id="registerUsername" name="username" type="text" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9_.\-]{3,24}" required placeholder="Choose a username"/><div class="hint">Use 3–24 letters, numbers, dots, underscores, or hyphens.</div></div>
+        <div class="form-field"><label for="registerEmail">Email (optional)</label><input class="control" id="registerEmail" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@example.com"/></div>
+        <div class="form-field"><label for="registerPassword">Password</label><input class="control" id="registerPassword" name="password" type="password" autocomplete="new-password" minlength="6" required placeholder="At least 6 characters"/></div>
+        <div class="form-field"><label for="registerConfirm">Confirm password</label><input class="control" id="registerConfirm" name="confirmPassword" type="password" autocomplete="new-password" minlength="6" required placeholder="Enter your password again"/></div>
+        <button class="btn btn-primary auth-submit" id="registerSubmit" type="submit">Submit for Approval</button>
+      </form>
+    </div>
+    <p class="auth-security-note"><strong>Approval required:</strong> new regular accounts remain pending until the superuser approves them. This local version stores account data in this browser only; use a secure backend before deploying it for real multi-user or sensitive use.</p>
+  </div>
+</section>
+
+<div class="app app-layout hidden" id="appShell">
 <aside aria-label="Main navigation" class="sidebar" id="sidebar">
 <div class="sidebar-brand">
 <div class="brand-mark">DT</div>
@@ -1460,6 +1684,18 @@
 </nav>
 <div class="sidebar-spacer"></div>
 <div class="sidebar-footer"><span>LOCAL VERSION</span><small>DATA SAVED ON THIS DEVICE</small></div>
+<div class="sidebar-account" id="sidebarAccount">
+  <button aria-controls="sidebarAccountMenu" aria-expanded="false" aria-haspopup="true" class="sidebar-account-trigger" id="sidebarAccountTrigger" type="button">
+    <span aria-hidden="true" class="sidebar-account-avatar" id="regularAccountAvatar">U</span>
+    <span class="sidebar-account-copy"><strong id="regularAccountName">User</strong><small>REGULAR USER</small></span>
+    <span aria-hidden="true" class="sidebar-account-chevron">⌃</span>
+  </button>
+  <div class="sidebar-account-menu" hidden id="sidebarAccountMenu" role="menu" aria-label="Account menu">
+    <button id="openAccountSettings" role="menuitem" type="button"><span aria-hidden="true" class="menu-item-icon">⚙</span>Account settings</button>
+    <div class="menu-divider" role="separator"></div>
+    <button class="menu-logout" id="regularLogoutBtn" role="menuitem" type="button"><span aria-hidden="true" class="menu-item-icon">↪</span>Log out</button>
+  </div>
+</div>
 </aside>
 <div class="sidebar-scrim" id="sidebarScrim"></div>
 <div class="app-main">
@@ -1493,6 +1729,7 @@
 <span id="themeToggleText">Dark mode</span>
 </button>
 </div>
+
 </div>
 </header>
 <main>
@@ -1683,7 +1920,7 @@
 </div>
 </div>
 <div class="ot-forms-frame-shell">
-<iframe class="ot-forms-frame" id="otFormsFrame" loading="eager" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;meta content=&quot;width=device-width, initial-scale=1&quot; name=&quot;viewport&quot;/&gt;&lt;title&gt;Daytrack OT Forms&lt;/title&gt;&lt;style&gt;
+<iframe allowfullscreen class="ot-forms-frame" id="otFormsFrame" loading="eager" srcdoc="&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;/&gt;&lt;meta content=&quot;width=device-width, initial-scale=1&quot; name=&quot;viewport&quot;/&gt;&lt;title&gt;Daytrack OT Forms&lt;/title&gt;&lt;style&gt;
       :root {
         --navy: #18324b;
         --blue: #245a81;
@@ -3258,15 +3495,420 @@
       @media (prefers-reduced-motion: reduce) {
         .tab { transition: none !important; }
       }
-&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;app-shell ot-forms-shell&quot;&gt;&lt;nav aria-label=&quot;Form type&quot; class=&quot;tabs&quot;&gt;
-&lt;button class=&quot;tab active&quot; data-tab=&quot;preapproved&quot; type=&quot;button&quot;&gt;
-          Pre-Approved OT Form
+
+
+      /* DAYTRACK OT WORKSPACE: fixed desktop canvas with dedicated form tabs. */
+      html, body {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+      }
+      body { margin: 0; }
+      .app-shell.ot-forms-shell {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        max-width: none;
+        margin: 0;
+        padding: 10px 12px 12px;
+        overflow: hidden;
+      }
+      .ot-forms-shell .tabs {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        flex: 0 0 auto;
+        margin: 0 0 10px;
+        padding: 0;
+        border: 0;
+      }
+      .ot-forms-shell .tab {
+        display: flex;
+        min-width: 0;
+        min-height: 52px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 3px;
+        padding: 8px 13px;
+        border: 1px solid rgba(122, 151, 180, .25);
+        border-radius: 10px;
+        text-align: left;
+      }
+      .ot-forms-shell .tab .tab-title {
+        display: block;
+        font-size: 12px;
+        line-height: 1.25;
+        font-weight: 850;
+      }
+      .ot-forms-shell .tab small {
+        display: block;
+        color: var(--muted);
+        font-size: 9px;
+        line-height: 1.25;
+        font-weight: 600;
+      }
+      .ot-forms-shell .tab.active small { opacity: .78; }
+      .ot-forms-shell .tab-panel {
+        display: none;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .ot-forms-shell .tab-panel.active {
+        display: block;
+      }
+      .ot-forms-shell .work-grid {
+        display: grid;
+        grid-template-columns: minmax(340px, 39%) minmax(0, 1fr);
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        gap: 12px;
+      }
+      .ot-forms-shell .editor,
+      .ot-forms-shell .preview-card {
+        min-width: 0;
+        min-height: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      .ot-forms-shell .editor {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+      }
+      .ot-forms-shell .editor .card-heading {
+        flex: 0 0 auto;
+        margin-bottom: 7px;
+      }
+      .ot-forms-shell .editor .section-title {
+        flex: 0 0 auto;
+        margin: 9px 0 6px;
+        padding-top: 8px;
+      }
+      .ot-forms-shell .fields { gap: 7px 9px; }
+      .ot-forms-shell .field label {
+        margin-bottom: 4px;
+        font-size: 10px;
+      }
+      .ot-forms-shell .editor input,
+      .ot-forms-shell .editor textarea,
+      .ot-forms-shell .editor select {
+        min-height: 32px;
+        padding: 6px 8px;
+        font-size: 11px;
+      }
+      .ot-forms-shell .row-card {
+        margin: 6px 0;
+        padding: 8px;
+      }
+      .ot-forms-shell .row-card-head { margin-bottom: 7px; }
+      .ot-forms-shell .row-fields { gap: 6px 8px; }
+      .ot-forms-shell .pre-rows-scroll,
+      .ot-forms-shell .half-rows-scroll,
+      .ot-forms-shell .half-rows-scroll.has-multiple {
+        flex: 1 1 auto;
+        min-height: 80px;
+        max-height: none !important;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .ot-forms-shell .editor &gt; .helper,
+      .ot-forms-shell .editor &gt; .footnote {
+        flex: 0 0 auto;
+        margin-top: 7px;
+      }
+      .ot-forms-shell .btn-row {
+        flex: 0 0 auto;
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .ot-forms-shell .btn { padding: 8px 10px; }
+      .ot-forms-shell .preview-card {
+        display: flex;
+        flex-direction: column;
+        padding: 11px;
+      }
+      .ot-forms-shell .preview-top {
+        flex: 0 0 auto;
+        margin: 0 2px 8px;
+      }
+      .ot-forms-shell .paper-wrap {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        min-height: 0;
+        overflow: hidden;
+        padding: 4px;
+      }
+      .ot-forms-shell .paper-wrap &gt; .paper {
+        flex: 0 0 auto;
+        width: 816px !important;
+        max-width: none !important;
+        min-height: 1056px;
+        margin: 0 auto;
+        transform-origin: top center;
+        will-change: transform;
+      }
+      :root[data-theme=&quot;dark&quot;] .ot-forms-shell .tab small { color: #a8b6c9; }
+
+      /* Narrow screens stack editor and preview; mobile can scroll naturally. */
+      @media (max-width: 900px) {
+        html, body {
+          height: auto;
+          min-height: 100%;
+          overflow: auto;
+        }
+        .app-shell.ot-forms-shell {
+          height: auto;
+          min-height: 100%;
+          overflow: visible;
+          padding: 10px 8px 14px;
+        }
+        .ot-forms-shell .tab-panel {
+          flex: none;
+          min-height: 0;
+          overflow: visible;
+        }
+        .ot-forms-shell .work-grid {
+          grid-template-columns: minmax(0, 1fr);
+          height: auto;
+          gap: 10px;
+        }
+        .ot-forms-shell .editor {
+          height: auto;
+          min-height: 0;
+          overflow: visible;
+        }
+        .ot-forms-shell .pre-rows-scroll,
+        .ot-forms-shell .half-rows-scroll,
+        .ot-forms-shell .half-rows-scroll.has-multiple {
+          flex: none;
+          max-height: min(42vh, 330px) !important;
+          overflow-y: auto;
+        }
+        .ot-forms-shell .preview-card {
+          height: min(72vh, 680px);
+          min-height: 460px;
+        }
+      }
+      @media (max-width: 560px) {
+        .ot-forms-shell .tabs { gap: 7px; }
+        .ot-forms-shell .tab {
+          min-height: 58px;
+          padding: 8px 9px;
+        }
+        .ot-forms-shell .tab .tab-title { font-size: 10px; }
+        .ot-forms-shell .tab small { font-size: 8px; }
+        .ot-forms-shell .preview-card { height: 620px; }
+      }
+
+      /* Enlarged document-view popup: show only the printable form, not the editor. */
+      .ot-forms-shell .maximize-btn {
+        width: 31px;
+        min-width: 31px;
+        height: 31px;
+        min-height: 31px;
+        padding: 5px;
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 auto;
+      }
+      .ot-forms-shell .maximize-btn svg { width: 17px; height: 17px; display: block; }
+      .form-viewer {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(7px, 1.4vw, 20px);
+        background: rgba(3, 9, 18, .82);
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+      }
+      .form-viewer.is-open { display: flex; }
+      .form-viewer-dialog {
+        display: flex;
+        flex-direction: column;
+        width: min(1500px, 100%);
+        height: 100%;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+        color: var(--ink);
+        box-shadow: 0 24px 80px rgba(0,0,0,.32);
+      }
+      .form-viewer-toolbar {
+        display: flex;
+        flex: 0 0 auto;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 52px;
+        padding: 8px 14px;
+        border-bottom: 1px solid var(--line);
+        background: var(--panel);
+      }
+      .form-viewer-heading { min-width: 0; }
+      .form-viewer-heading strong {
+        display: block;
+        color: var(--navy);
+        font-size: 12px;
+        font-weight: 850;
+      }
+      .form-viewer-heading small {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 9px;
+      }
+      .form-viewer-close {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 32px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--canvas);
+        color: var(--ink);
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+      }
+      .form-viewer-close:hover { border-color: var(--blue); color: var(--blue); }
+      .form-viewer-content {
+        display: flex;
+        flex: 1 1 auto;
+        align-items: flex-start;
+        justify-content: center;
+        min-width: 0;
+        min-height: 0;
+        overflow: auto;
+        padding: clamp(8px, 1.8vw, 24px);
+        background: var(--canvas);
+        overscroll-behavior: contain;
+      }
+      .form-viewer-paper-frame {
+        position: relative;
+        flex: 0 0 auto;
+        margin: 0 auto 16px;
+      }
+      .form-viewer-paper-frame &gt; .paper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0 !important;
+        transform-origin: top left;
+      }
+      :root[data-theme=&quot;dark&quot;] .form-viewer-dialog,
+      :root[data-theme=&quot;dark&quot;] .form-viewer-toolbar { background: #0f141b; }
+      :root[data-theme=&quot;dark&quot;] .form-viewer-content { background: #11151b; }
+      @media (max-width: 560px) {
+        .form-viewer { padding: 0; }
+        .form-viewer-dialog { width: 100%; height: 100%; border: 0; border-radius: 0; }
+        .form-viewer-toolbar { min-height: 48px; padding: 7px 10px; }
+        .form-viewer-content { padding: 8px 4px; }
+      }
+
+
+      /* FULL-PAGE FORM VIEWER: dark canvas with the complete paper fitted to the viewport. */
+      .form-viewer {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 100000 !important;
+        display: none;
+        align-items: stretch !important;
+        justify-content: stretch !important;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        padding: 0 !important;
+        background: #05080e !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+      }
+      .form-viewer.is-open { display: flex !important; }
+      .form-viewer-dialog {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100vw !important;
+        max-width: none !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        overflow: hidden !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: #080d15 !important;
+        color: #edf2f8 !important;
+        box-shadow: none !important;
+      }
+      .form-viewer-toolbar {
+        flex: 0 0 auto !important;
+        min-height: 54px !important;
+        padding: 9px clamp(12px, 2vw, 26px) !important;
+        border-bottom: 1px solid #263140 !important;
+        background: #0b121c !important;
+      }
+      .form-viewer-heading strong { color: #f1f5f9 !important; }
+      .form-viewer-heading small { color: #9aa9bb !important; }
+      .form-viewer-close {
+        background: #1b2633 !important;
+        color: #f1f5f9 !important;
+        border: 1px solid #3b4a5d !important;
+      }
+      .form-viewer-close:hover {
+        background: #2a394b !important;
+        color: #ffffff !important;
+        border-color: #71839a !important;
+      }
+      .form-viewer-content {
+        display: flex !important;
+        flex: 1 1 auto !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        padding: 12px !important;
+        background: #05080e !important;
+      }
+      .form-viewer-paper-frame {
+        flex: 0 0 auto !important;
+        margin: 0 auto !important;
+      }
+      .form-viewer-paper-frame &gt; .paper {
+        box-shadow: 0 14px 55px rgba(0,0,0,.42) !important;
+      }
+      @media (max-width: 560px) {
+        .form-viewer-toolbar { min-height: 48px !important; padding: 7px 10px !important; }
+        .form-viewer-content { padding: 8px 5px !important; }
+      }
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;app-shell ot-forms-shell&quot;&gt;&lt;nav aria-label=&quot;Overtime form workspace&quot; class=&quot;tabs&quot; role=&quot;tablist&quot;&gt;
+&lt;button aria-controls=&quot;preapproved-panel&quot; aria-selected=&quot;true&quot; class=&quot;tab active&quot; data-tab=&quot;preapproved&quot; id=&quot;preapprovedTab&quot; role=&quot;tab&quot; type=&quot;button&quot;&gt;
+          &lt;span class=&quot;tab-title&quot;&gt;Pre-Approved OT Form&lt;/span&gt;
+          &lt;small&gt;Multiple employees · Letter portrait&lt;/small&gt;
         &lt;/button&gt;
-&lt;button class=&quot;tab&quot; data-tab=&quot;halfsheet&quot; type=&quot;button&quot;&gt;
-          Half-Sheet Form
+&lt;button aria-controls=&quot;halfsheet-panel&quot; aria-selected=&quot;false&quot; class=&quot;tab&quot; data-tab=&quot;halfsheet&quot; id=&quot;halfsheetTab&quot; role=&quot;tab&quot; type=&quot;button&quot;&gt;
+          &lt;span class=&quot;tab-title&quot;&gt;Half-Sheet Form&lt;/span&gt;
+          &lt;small&gt;Employee overtime summary · Half-sheet layout&lt;/small&gt;
         &lt;/button&gt;
 &lt;/nav&gt;
-&lt;section class=&quot;tab-panel active&quot; id=&quot;preapproved-panel&quot;&gt;
+&lt;section aria-labelledby=&quot;preapprovedTab&quot; class=&quot;tab-panel active&quot; id=&quot;preapproved-panel&quot; role=&quot;tabpanel&quot;&gt;
 &lt;div class=&quot;work-grid&quot;&gt;
 &lt;div class=&quot;card editor&quot;&gt;
 &lt;div class=&quot;card-heading&quot;&gt;
@@ -3313,6 +3955,9 @@
 &lt;h2&gt;Form preview&lt;/h2&gt;
 &lt;div class=&quot;preview-actions&quot;&gt;
 &lt;span class=&quot;preview-format&quot;&gt;LETTER · PORTRAIT&lt;/span&gt;
+&lt;button class=&quot;btn secondary maximize-btn&quot; data-maximize-preview=&quot;true&quot; type=&quot;button&quot; aria-label=&quot;Open enlarged form view&quot; title=&quot;Open enlarged form view&quot; aria-haspopup=&quot;dialog&quot; aria-pressed=&quot;false&quot;&gt;
+                  &lt;svg aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.9&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M8 3H3v5M3 3l7 7M16 3h5v5M21 3l-7 7M3 16v5h5M3 21l7-7M21 16v5h-5M21 21l-7-7&quot;/&gt;&lt;/svg&gt;
+                &lt;/button&gt;
 &lt;button class=&quot;btn secondary screenshot-btn&quot; id=&quot;capturePre&quot; title=&quot;Download the form preview as a PNG image&quot; type=&quot;button&quot;&gt;
                   Screenshot
                 &lt;/button&gt;
@@ -3325,7 +3970,7 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/section&gt;
-&lt;section class=&quot;tab-panel&quot; id=&quot;halfsheet-panel&quot;&gt;
+&lt;section aria-labelledby=&quot;halfsheetTab&quot; class=&quot;tab-panel&quot; id=&quot;halfsheet-panel&quot; role=&quot;tabpanel&quot; hidden&gt;
 &lt;div class=&quot;work-grid&quot;&gt;
 &lt;div class=&quot;card editor&quot;&gt;
 &lt;div class=&quot;card-heading&quot;&gt;
@@ -3388,6 +4033,9 @@
 &lt;h2&gt;Form preview&lt;/h2&gt;
 &lt;div class=&quot;preview-actions&quot;&gt;
 &lt;span class=&quot;preview-format&quot;&gt;LETTER · PORTRAIT&lt;/span&gt;
+&lt;button class=&quot;btn secondary maximize-btn&quot; data-maximize-preview=&quot;true&quot; type=&quot;button&quot; aria-label=&quot;Open enlarged form view&quot; title=&quot;Open enlarged form view&quot; aria-haspopup=&quot;dialog&quot; aria-pressed=&quot;false&quot;&gt;
+                  &lt;svg aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.9&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M8 3H3v5M3 3l7 7M16 3h5v5M21 3l-7 7M3 16v5h5M3 21l7-7M21 16v5h-5M21 21l-7-7&quot;/&gt;&lt;/svg&gt;
+                &lt;/button&gt;
 &lt;button class=&quot;btn secondary screenshot-btn&quot; id=&quot;captureHalf&quot; title=&quot;Download the form preview as a PNG image&quot; type=&quot;button&quot;&gt;
                   Screenshot
                 &lt;/button&gt;
@@ -3400,7 +4048,19 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/section&gt;
-&lt;/div&gt;&lt;div aria-hidden=&quot;true&quot; id=&quot;printView&quot;&gt;&lt;/div&gt;&lt;script&gt;
+&lt;/div&gt;&lt;div class=&quot;form-viewer&quot; id=&quot;formViewer&quot; aria-hidden=&quot;true&quot;&gt;
+  &lt;section class=&quot;form-viewer-dialog&quot; role=&quot;dialog&quot; aria-modal=&quot;true&quot; aria-labelledby=&quot;formViewerTitle&quot; aria-describedby=&quot;formViewerHint&quot;&gt;
+    &lt;header class=&quot;form-viewer-toolbar&quot;&gt;
+      &lt;div class=&quot;form-viewer-heading&quot;&gt;
+        &lt;strong id=&quot;formViewerTitle&quot;&gt;Form preview&lt;/strong&gt;
+        &lt;small id=&quot;formViewerHint&quot;&gt;Full-page form view · Close with × or press Esc&lt;/small&gt;
+      &lt;/div&gt;
+      &lt;button class=&quot;form-viewer-close&quot; id=&quot;closeFormViewer&quot; type=&quot;button&quot; aria-label=&quot;Close enlarged form view&quot; title=&quot;Close form view&quot;&gt;×&lt;/button&gt;
+    &lt;/header&gt;
+    &lt;div class=&quot;form-viewer-content&quot; id=&quot;formViewerContent&quot; tabindex=&quot;0&quot;&gt;&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/div&gt;
+&lt;div aria-hidden=&quot;true&quot; id=&quot;printView&quot;&gt;&lt;/div&gt;&lt;script&gt;
 (function () {
   function applyDaytrackTheme(theme) {
     const resolved = theme === &#x27;dark&#x27; ? &#x27;dark&#x27; : &#x27;light&#x27;;
@@ -4187,19 +4847,112 @@
 
         document.querySelectorAll(&quot;.tab&quot;).forEach((tab) =&gt;
           tab.addEventListener(&quot;click&quot;, () =&gt; {
-            document
-              .querySelectorAll(&quot;.tab&quot;)
-              .forEach((t) =&gt; t.classList.toggle(&quot;active&quot;, t === tab));
-            document
-              .querySelectorAll(&quot;.tab-panel&quot;)
-              .forEach((panel) =&gt;
-                panel.classList.toggle(
-                  &quot;active&quot;,
-                  panel.id === `${tab.dataset.tab}-panel`,
-                ),
-              );
+            document.querySelectorAll(&quot;.tab&quot;).forEach((item) =&gt; {
+              const selected = item === tab;
+              item.classList.toggle(&quot;active&quot;, selected);
+              item.setAttribute(&quot;aria-selected&quot;, String(selected));
+              item.tabIndex = selected ? 0 : -1;
+            });
+            document.querySelectorAll(&quot;.tab-panel&quot;).forEach((panel) =&gt; {
+              const selected = panel.id === `${tab.dataset.tab}-panel`;
+              panel.classList.toggle(&quot;active&quot;, selected);
+              panel.hidden = !selected;
+            });
+            window.dispatchEvent(new Event(&quot;ot-workspace-tab-change&quot;));
           }),
         );
+
+        const maximizeIcon = &#x27;&lt;svg aria-hidden=&quot;true&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.9&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M8 3H3v5M3 3l7 7M16 3h5v5M21 3l-7 7M3 16v5h5M3 21l7-7M21 16v5h-5M21 21l-7-7&quot;/&gt;&lt;/svg&gt;&#x27;;
+        let formViewerSourceButton = null;
+        let formViewerResizeObserver = null;
+
+        function fitFormViewerPaper() {
+          const content = $(&quot;formViewerContent&quot;);
+          const frame = content.querySelector(&quot;.form-viewer-paper-frame&quot;);
+          const paper = frame &amp;&amp; frame.querySelector(&quot;.paper&quot;);
+          if (!paper || !frame || !content.clientWidth || !content.clientHeight) return;
+
+          paper.style.transform = &quot;none&quot;;
+          const naturalWidth = Math.max(paper.offsetWidth, paper.scrollWidth);
+          const naturalHeight = Math.max(paper.offsetHeight, paper.scrollHeight);
+          if (!naturalWidth || !naturalHeight) return;
+
+          // Fit the complete paper (not only its width) into the full-screen dark viewer.
+          const availableWidth = Math.max(160, content.clientWidth - 28);
+          const availableHeight = Math.max(160, content.clientHeight - 28);
+          const scale = Math.min(1, availableWidth / naturalWidth, availableHeight / naturalHeight);
+          frame.style.width = `${naturalWidth * scale}px`;
+          frame.style.height = `${naturalHeight * scale}px`;
+          paper.style.transformOrigin = &quot;top left&quot;;
+          paper.style.transform = `scale(${scale})`;
+        }
+
+        function openFormViewer(button) {
+          const panel = button.closest(&quot;.tab-panel&quot;);
+          if (!panel || !panel.querySelector(&quot;.paper&quot;)) return;
+          const formType = panel.id === &quot;halfsheet-panel&quot; ? &quot;halfsheet&quot; : &quot;preapproved&quot;;
+          formViewerSourceButton = button;
+          button.setAttribute(&quot;aria-pressed&quot;, &quot;true&quot;);
+          button.setAttribute(&quot;aria-label&quot;, &quot;Close enlarged form view&quot;);
+          button.title = &quot;Close enlarged form view&quot;;
+          // Ask the host Daytrack page to show the viewer above the entire application,
+          // not merely inside this embedded OT workspace.
+          window.parent.postMessage({ type: &quot;daytrack-open-ot-form-viewer&quot;, formType }, &quot;*&quot;);
+        }
+
+        function closeFormViewer() {
+          const viewer = $(&quot;formViewer&quot;);
+          if (!viewer.classList.contains(&quot;is-open&quot;)) return;
+          viewer.classList.remove(&quot;is-open&quot;);
+          viewer.setAttribute(&quot;aria-hidden&quot;, &quot;true&quot;);
+          document.body.classList.remove(&quot;form-viewer-open&quot;);
+          $(&quot;formViewerContent&quot;).replaceChildren();
+          if (formViewerResizeObserver) {
+            formViewerResizeObserver.disconnect();
+            formViewerResizeObserver = null;
+          }
+          if (formViewerSourceButton) {
+            formViewerSourceButton.setAttribute(&quot;aria-pressed&quot;, &quot;false&quot;);
+            formViewerSourceButton.setAttribute(&quot;aria-label&quot;, &quot;Open enlarged form view&quot;);
+            formViewerSourceButton.title = &quot;Open enlarged form view&quot;;
+            formViewerSourceButton.focus();
+            formViewerSourceButton = null;
+          }
+        }
+
+        document.querySelectorAll(&#x27;[data-maximize-preview]&#x27;).forEach((button) =&gt; {
+          button.innerHTML = maximizeIcon;
+          button.setAttribute(&#x27;aria-pressed&#x27;, &#x27;false&#x27;);
+          button.addEventListener(&#x27;click&#x27;, () =&gt; {
+            if ($(&quot;formViewer&quot;).classList.contains(&quot;is-open&quot;)) closeFormViewer();
+            else openFormViewer(button);
+          });
+        });
+        window.addEventListener(&quot;message&quot;, (event) =&gt; {
+          if (event.data &amp;&amp; event.data.type === &quot;daytrack-close-ot-form-viewer&quot;) {
+            if (formViewerSourceButton) {
+              formViewerSourceButton.setAttribute(&quot;aria-pressed&quot;, &quot;false&quot;);
+              formViewerSourceButton.setAttribute(&quot;aria-label&quot;, &quot;Open enlarged form view&quot;);
+              formViewerSourceButton.title = &quot;Open enlarged form view&quot;;
+              formViewerSourceButton.focus();
+              formViewerSourceButton = null;
+            }
+          }
+        });
+        $(&quot;closeFormViewer&quot;).addEventListener(&quot;click&quot;, closeFormViewer);
+        $(&quot;formViewer&quot;).addEventListener(&quot;click&quot;, (event) =&gt; {
+          if (event.target === $(&quot;formViewer&quot;)) closeFormViewer();
+        });
+        document.addEventListener(&quot;keydown&quot;, (event) =&gt; {
+          if (event.key === &quot;Escape&quot; &amp;&amp; $(&quot;formViewer&quot;).classList.contains(&quot;is-open&quot;)) {
+            event.preventDefault();
+            closeFormViewer();
+          }
+        });
+        window.addEventListener(&quot;resize&quot;, () =&gt; {
+          if ($(&quot;formViewer&quot;).classList.contains(&quot;is-open&quot;)) fitFormViewerPaper();
+        }, { passive: true });
+
         $(&quot;addPreRow&quot;).addEventListener(&quot;click&quot;, addPreRow);
         $(&quot;addHalfRow&quot;).addEventListener(&quot;click&quot;, addHalfRow);
         $(&quot;printPre&quot;).addEventListener(&quot;click&quot;, () =&gt; printForm(&quot;preapproved&quot;));
@@ -4330,12 +5083,106 @@
         addPreRow();
         addHalfRow();
       })();
-    &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;" title="Pre-Approved and Half-Sheet OT Form Generator"></iframe>
+    &lt;/script&gt;
+&lt;script&gt;
+(() =&gt; {
+  const fitPreviewPapers = () =&gt; {
+    document.querySelectorAll(&#x27;.paper-wrap&#x27;).forEach((wrap) =&gt; {
+      const paper = wrap.querySelector(&#x27;.paper&#x27;);
+      if (!paper || !wrap.clientWidth || !wrap.clientHeight) return;
+      paper.style.transform = &#x27;none&#x27;;
+      const naturalWidth = Math.max(paper.offsetWidth, paper.scrollWidth);
+      const naturalHeight = Math.max(paper.offsetHeight, paper.scrollHeight);
+      const availableWidth = Math.max(1, wrap.clientWidth - 12);
+      const availableHeight = Math.max(1, wrap.clientHeight - 12);
+      if (!naturalWidth || !naturalHeight) return;
+      const scale = Math.min(1, availableWidth / naturalWidth, availableHeight / naturalHeight);
+      paper.style.transformOrigin = &#x27;top center&#x27;;
+      paper.style.transform = `scale(${scale})`;
+    });
+  };
+  let frame = 0;
+  const scheduleFit = () =&gt; {
+    cancelAnimationFrame(frame);
+    frame = requestAnimationFrame(fitPreviewPapers);
+  };
+  document.querySelectorAll(&#x27;.paper-wrap&#x27;).forEach((wrap) =&gt; {
+    if (window.ResizeObserver) {
+      const sizeObserver = new ResizeObserver(scheduleFit);
+      sizeObserver.observe(wrap);
+    }
+    const paper = wrap.querySelector(&#x27;.paper&#x27;);
+    if (paper &amp;&amp; window.MutationObserver) {
+      const contentObserver = new MutationObserver(scheduleFit);
+      contentObserver.observe(paper, { childList: true, subtree: true, characterData: true });
+    }
+  });
+  window.addEventListener(&#x27;resize&#x27;, scheduleFit, { passive: true });
+  window.addEventListener(&#x27;load&#x27;, scheduleFit);
+  window.addEventListener(&#x27;ot-workspace-tab-change&#x27;, scheduleFit);
+  document.querySelectorAll(&#x27;.tab&#x27;).forEach((tab) =&gt; tab.addEventListener(&#x27;click&#x27;, scheduleFit));
+  if (document.fonts &amp;&amp; document.fonts.ready) document.fonts.ready.then(scheduleFit).catch(() =&gt; {});
+  scheduleFit();
+  requestAnimationFrame(() =&gt; requestAnimationFrame(scheduleFit));
+})();
+&lt;/script&gt;
+&lt;/body&gt;&lt;/html&gt;" title="Pre-Approved and Half-Sheet OT Form Generator"></iframe>
 </div>
 </section>
 </main>
 </div>
 </div>
+
+<section class="admin-shell hidden" id="adminShell" aria-label="Superuser account management">
+  <header class="admin-topbar">
+    <div class="admin-brand"><div class="admin-brand-mark">DT</div><div class="admin-brand-copy"><strong>DAYTRACK ADMIN</strong><small>ACCOUNT MANAGEMENT CONSOLE</small></div></div>
+    <div class="admin-top-actions"><div class="admin-identity"><strong id="adminSignedInName">Superuser</strong><small>SUPERUSER</small></div><button aria-label="Switch to dark mode" aria-pressed="false" class="theme-toggle" id="adminThemeToggle" type="button" title="Toggle light and dark mode"><span aria-hidden="true" class="theme-toggle-icon" id="adminThemeToggleIcon">☾</span><span id="adminThemeToggleText">Light</span></button><button class="logout-btn" id="adminLogoutBtn" type="button">Log Out</button></div>
+  </header>
+  <main class="admin-main">
+    <div class="admin-heading"><div><p class="admin-eyebrow">SUPERUSER WORKSPACE</p><h1>User Access Management</h1><p>Review registration requests and manage account access. This workspace is separate from the attendance application and does not display users’ attendance, schedules, journals, or OT forms.</p></div></div>
+    <section class="admin-stats" aria-label="Account statistics">
+      <div class="admin-stat"><div class="admin-stat-label">TOTAL REGULAR ACCOUNTS</div><div class="admin-stat-value" id="adminTotalUsers">0</div></div>
+      <div class="admin-stat"><div class="admin-stat-label">APPROVED ACCOUNTS</div><div class="admin-stat-value" id="adminApprovedUsers">0</div></div>
+      <div class="admin-stat"><div class="admin-stat-label">PENDING APPROVAL</div><div class="admin-stat-value" id="adminPendingUsers">0</div></div>
+      <div class="admin-stat"><div class="admin-stat-label">CURRENTLY ONLINE</div><div class="admin-stat-value" id="adminOnlineUsers">0</div></div>
+    </section>
+    <section class="admin-panel">
+      <div class="admin-panel-head">
+        <div><h2>Registered Users</h2><p id="adminUserCountText">Manage regular-user registration and access status.</p></div>
+        <div class="admin-filters"><input class="control admin-search" id="adminUserSearch" type="search" placeholder="Search name or username" aria-label="Search users"/><select class="control" id="adminStatusFilter" aria-label="Filter by account status"><option value="all">All statuses</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="denied">Denied</option></select></div>
+      </div>
+      <div class="admin-table-wrap" id="adminTableWrap">
+        <table class="admin-table"><thead><tr><th>User</th><th>Email</th><th>Account status</th><th>Activity</th><th>Registered</th><th>Last sign in</th><th>Actions</th></tr></thead><tbody id="adminUserRows"></tbody></table>
+      </div>
+      <div class="admin-empty hidden" id="adminEmptyState"><strong>No users found</strong><span id="adminEmptyText">Regular-user accounts will appear here after registration.</span></div>
+    </section>
+    <p class="admin-footnote">Online status is estimated from a local browser activity timestamp and may take up to 90 seconds to change after a browser is closed. Because this version uses localStorage, account lists are limited to this browser and device.</p>
+  </main>
+</section>
+
+<!-- Regular user account settings -->
+<div aria-labelledby="profileSettingsTitle" aria-modal="true" class="modal-backdrop" id="profileSettingsModal" role="dialog">
+  <form class="modal profile-modal" id="profileSettingsForm">
+    <div class="modal-head">
+      <div><h3 id="profileSettingsTitle">Account settings</h3><p>Update the details associated with your Daytrack account.</p></div>
+      <button aria-label="Close account settings" class="close-btn" data-close="profileSettingsModal" type="button">×</button>
+    </div>
+    <div class="modal-body">
+      <p class="profile-modal-note">These details belong to your regular-user account. Your attendance, schedules, and journals will remain unchanged.</p>
+      <div class="profile-feedback" id="profileSettingsFeedback" role="status" aria-live="polite"></div>
+      <div class="form-grid">
+        <div class="form-field full"><label for="profileDisplayName">Full name</label><input autocomplete="name" class="control" id="profileDisplayName" maxlength="70" required type="text" placeholder="Your full name"/></div>
+        <div class="form-field"><label for="profileUsername">Username</label><input autocomplete="username" class="control" id="profileUsername" maxlength="24" minlength="3" pattern="[A-Za-z0-9_.\-]{3,24}" required type="text"/><div class="hint">3–24 letters, numbers, dots, underscores, or hyphens.</div></div>
+        <div class="form-field"><label for="profileEmail">Email address</label><input autocomplete="email" class="control" id="profileEmail" maxlength="120" type="email" placeholder="name@example.com"/></div>
+        <div class="profile-section-title">CHANGE PASSWORD <span style="font-weight:600;letter-spacing:0;text-transform:none">· optional</span></div>
+        <div class="form-field"><label for="profileNewPassword">New password</label><input autocomplete="new-password" class="control" id="profileNewPassword" minlength="6" type="password" placeholder="At least 6 characters"/><div class="hint">Leave blank to keep your current password.</div></div>
+        <div class="form-field"><label for="profileConfirmPassword">Confirm new password</label><input autocomplete="new-password" class="control" id="profileConfirmPassword" minlength="6" type="password" placeholder="Re-enter new password"/></div>
+      </div>
+    </div>
+    <div class="modal-actions"><span class="hint">Changes are saved to this browser.</span><div class="modal-actions-right"><button class="btn btn-light" data-close="profileSettingsModal" type="button">Cancel</button><button class="btn btn-primary" id="saveProfileSettings" type="submit">Save changes</button></div></div>
+  </form>
+</div>
+
 <!-- Add / Edit attendance -->
 <div aria-labelledby="attendanceModalTitle" aria-modal="true" class="modal-backdrop" id="attendanceModal" role="dialog">
 <form class="modal" id="attendanceForm">
@@ -4400,7 +5247,14 @@
   const SCHEDULE_STORAGE_KEY = 'daytrackSchedules_v1';
   const JOURNAL_STORAGE_KEY = 'daytrackJournals_v1';
   const NOTIFIED_REMINDERS_KEY = 'daytrackNotifiedScheduleReminders_v1';
+  const ACCOUNTS_STORAGE_KEY = 'daytrackAccounts_v1';
+  const SESSION_STORAGE_KEY = 'daytrackSession_v1';
+  const LEGACY_MIGRATION_KEY = 'daytrackLegacyDataMigrated_v1';
   const $ = (id) => document.getElementById(id);
+  let activeAccount = null;
+  let scheduleReminderInterval = null;
+  let userHeartbeatInterval = null;
+  let adminRefreshInterval = null;
   let records = [];
   let schedules = [];
   let journals = [];
@@ -4438,13 +5292,391 @@
   const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const makeId = () => (crypto && crypto.randomUUID) ? crypto.randomUUID() : `att-${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
+  function accountScopedKey(baseKey, account = activeAccount) {
+    return account && account.role === 'user' ? `${baseKey}::${account.id}` : baseKey;
+  }
+  function readAccounts() {
+    try {
+      const data = JSON.parse(localStorage.getItem(ACCOUNTS_STORAGE_KEY) || '[]');
+      return Array.isArray(data) ? data.filter(account => account && account.id && account.username && account.role) : [];
+    } catch (error) { return []; }
+  }
+  function writeAccounts(accounts) {
+    try { localStorage.setItem(ACCOUNTS_STORAGE_KEY, JSON.stringify(accounts)); return true; }
+    catch (error) { console.error(error); showAuthFeedback('Browser storage is full. Account changes could not be saved.', 'error'); return false; }
+  }
+  function createSalt() {
+    const bytes = new Uint8Array(16);
+    if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(bytes);
+    else for (let i = 0; i < bytes.length; i++) bytes[i] = Math.floor(Math.random() * 256);
+    return Array.from(bytes, value => value.toString(16).padStart(2, '0')).join('');
+  }
+  function fallbackPasswordDigest(password, salt) {
+    // Compatibility fallback for browsers without Web Crypto. This is not suitable for production authentication.
+    const input = `${salt}:${password}`;
+    let hash = 2166136261;
+    for (let round = 0; round < 12000; round++) {
+      for (let i = 0; i < input.length; i++) {
+        hash ^= input.charCodeAt(i) + round;
+        hash = Math.imul(hash, 16777619);
+        hash ^= hash >>> 13;
+      }
+    }
+    return (hash >>> 0).toString(16).padStart(8, '0');
+  }
+  async function hashPassword(password, salt) {
+    if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+      try {
+        const key = await window.crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+        const result = await window.crypto.subtle.deriveBits({name:'PBKDF2', salt:new TextEncoder().encode(salt), iterations:120000, hash:'SHA-256'}, key, 256);
+        return Array.from(new Uint8Array(result), value => value.toString(16).padStart(2, '0')).join('');
+      } catch (error) { console.warn('Web Crypto unavailable; using local compatibility hash.'); }
+    }
+    return fallbackPasswordDigest(password, salt);
+  }
+  function showAuthFeedback(message, kind = 'error') {
+    const box = $('authFeedback');
+    if (!box) return;
+    box.textContent = message;
+    box.dataset.kind = kind;
+    box.classList.add('show');
+  }
+  function clearAuthFeedback() {
+    const box = $('authFeedback');
+    if (box) { box.textContent = ''; box.classList.remove('show'); delete box.dataset.kind; }
+  }
+  function setAuthMode(mode) {
+    const registering = mode === 'register';
+    $('loginForm').classList.toggle('hidden', registering);
+    $('registerForm').classList.toggle('hidden', !registering);
+    $('authLoginTab').classList.toggle('active', !registering);
+    $('authRegisterTab').classList.toggle('active', registering);
+    $('authLoginTab').setAttribute('aria-selected', String(!registering));
+    $('authRegisterTab').setAttribute('aria-selected', String(registering));
+    $('authHeading').textContent = registering ? 'Create your account' : 'Sign in to Daytrack';
+    $('authSubtitle').textContent = registering ? 'Register as a regular user. Your account will be available after superuser approval.' : 'Access your personal attendance, schedule, journal, and OT tools.';
+    clearAuthFeedback();
+  }
+  async function ensureDefaultSuperuser() {
+    const accounts = readAccounts();
+    let admin = accounts.find(account => String(account.username).toLowerCase() === 'admin');
+    if (!admin || admin.role !== 'superuser' || !admin.passwordHash || !admin.passwordSalt) {
+      const nextAccounts = accounts.filter(account => String(account.username).toLowerCase() !== 'admin');
+      const salt = createSalt();
+      const passwordHash = await hashPassword('admin', salt);
+      admin = {id:'daytrack-superuser-admin', username:'admin', displayName:'Superuser', email:'', role:'superuser', status:'approved', passwordSalt:salt, passwordHash, createdAt:new Date().toISOString(), lastLoginAt:null, lastActiveAt:null};
+      nextAccounts.unshift(admin);
+      writeAccounts(nextAccounts);
+    }
+    return admin;
+  }
+  function migrateLegacyDataToFirstUser(account) {
+    try {
+      if (localStorage.getItem(LEGACY_MIGRATION_KEY)) return;
+      const oldKeys = [STORAGE_KEY, SCHEDULE_STORAGE_KEY, JOURNAL_STORAGE_KEY, NOTIFIED_REMINDERS_KEY];
+      oldKeys.forEach(baseKey => {
+        const oldValue = localStorage.getItem(baseKey);
+        const newKey = accountScopedKey(baseKey, account);
+        if (oldValue !== null && localStorage.getItem(newKey) === null) localStorage.setItem(newKey, oldValue);
+      });
+      // Keep the original keys as a local backup; normal app reads now use account-specific keys.
+      localStorage.setItem(LEGACY_MIGRATION_KEY, account.id);
+    } catch (error) { console.warn('Could not complete legacy data migration.', error); }
+  }
+  function stopAccountIntervals() {
+    if (scheduleReminderInterval) { clearInterval(scheduleReminderInterval); scheduleReminderInterval = null; }
+    if (userHeartbeatInterval) { clearInterval(userHeartbeatInterval); userHeartbeatInterval = null; }
+    if (adminRefreshInterval) { clearInterval(adminRefreshInterval); adminRefreshInterval = null; }
+  }
+  function showAuthScreen() {
+    activeAccount = null;
+    stopAccountIntervals();
+    $('authScreen').classList.remove('hidden');
+    $('appShell').classList.add('hidden');
+    $('adminShell').classList.add('hidden');
+    document.body.classList.remove('admin-active');
+    document.body.classList.add('auth-active');
+    setAuthMode('login');
+    $('loginPassword').value = '';
+    $('registerPassword').value = '';
+    $('registerConfirm').value = '';
+    closeSidebarAccountMenu();
+  }
+  function updateAccountActivity(accountId, timestamp = new Date().toISOString()) {
+    const accounts = readAccounts();
+    const account = accounts.find(item => item.id === accountId);
+    if (!account) return;
+    account.lastActiveAt = timestamp;
+    writeAccounts(accounts);
+  }
+  function startUserHeartbeat(account) {
+    if (userHeartbeatInterval) clearInterval(userHeartbeatInterval);
+    const touch = () => {
+      if (!activeAccount || activeAccount.role !== 'user' || activeAccount.id !== account.id) return;
+      updateAccountActivity(account.id);
+    };
+    touch();
+    userHeartbeatInterval = setInterval(touch, 30000);
+  }
+  function openRegularWorkspace(account) {
+    if (account.status !== 'approved') { showAuthScreen(); return; }
+    activeAccount = account;
+    migrateLegacyDataToFirstUser(account);
+    $('authScreen').classList.add('hidden');
+    $('adminShell').classList.add('hidden');
+    $('appShell').classList.remove('hidden');
+    document.body.classList.remove('auth-active', 'admin-active');
+    refreshSidebarAccount(account);
+    closeSidebarAccountMenu();
+    loadLocal(); loadSchedules(); loadJournals(); loadTriggeredReminders();
+    render(); renderCalendar(); loadJournalEditor(localDateValue()); setView('dashboard'); renderNotificationPanel(); checkScheduleReminders();
+    stopAccountIntervals();
+    startUserHeartbeat(account);
+    scheduleReminderInterval = setInterval(checkScheduleReminders, 30000);
+  }
+  function isAccountOnline(account) {
+    const lastActive = account.lastActiveAt ? Date.parse(account.lastActiveAt) : 0;
+    return account.status === 'approved' && Number.isFinite(lastActive) && Date.now() - lastActive < 90000;
+  }
+  function adminDateLabel(value) {
+    if (!value) return '—';
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? '—' : date.toLocaleString('en-PH', {year:'numeric', month:'short', day:'numeric', hour:'numeric', minute:'2-digit'});
+  }
+  function renderAdminUsers() {
+    const accounts = readAccounts().filter(account => account.role === 'user');
+    const onlineCount = accounts.filter(isAccountOnline).length;
+    $('adminTotalUsers').textContent = String(accounts.length);
+    $('adminApprovedUsers').textContent = String(accounts.filter(account => account.status === 'approved').length);
+    $('adminPendingUsers').textContent = String(accounts.filter(account => account.status === 'pending').length);
+    $('adminOnlineUsers').textContent = String(onlineCount);
+    const query = $('adminUserSearch').value.trim().toLowerCase();
+    const statusFilter = $('adminStatusFilter').value;
+    const filtered = accounts.filter(account => {
+      const matchesText = !query || [account.displayName, account.username, account.email].some(value => String(value || '').toLowerCase().includes(query));
+      return matchesText && (statusFilter === 'all' || account.status === statusFilter);
+    }).sort((a,b) => String(b.createdAt || '').localeCompare(String(a.createdAt || '')));
+    $('adminUserCountText').textContent = `${filtered.length} shown · ${accounts.length} regular account${accounts.length === 1 ? '' : 's'} total`;
+    $('adminUserRows').innerHTML = filtered.map(account => {
+      const status = ['approved','pending','denied'].includes(account.status) ? account.status : 'pending';
+      const online = isAccountOnline(account);
+      let actions = '';
+      if (status === 'pending') actions = `<button class="btn btn-primary btn-small" data-user-action="approve" data-user-id="${escapeHTML(account.id)}" type="button">Approve</button><button class="btn btn-danger btn-small" data-user-action="deny" data-user-id="${escapeHTML(account.id)}" type="button">Deny</button>`;
+      else if (status === 'approved') actions = `<button class="btn btn-danger btn-small" data-user-action="deny" data-user-id="${escapeHTML(account.id)}" type="button">Revoke access</button>`;
+      else actions = `<button class="btn btn-primary btn-small" data-user-action="approve" data-user-id="${escapeHTML(account.id)}" type="button">Approve</button>`;
+      return `<tr><td><span class="admin-user-name">${escapeHTML(account.displayName || account.username)}</span><span class="admin-user-handle">@${escapeHTML(account.username)}</span></td><td class="admin-muted">${escapeHTML(account.email || '—')}</td><td><span class="status-pill ${status}">${status}</span></td><td><span class="status-pill ${online ? 'online' : 'offline'}">${online ? 'Online' : 'Offline'}</span></td><td class="admin-muted">${escapeHTML(adminDateLabel(account.createdAt))}</td><td class="admin-muted">${escapeHTML(adminDateLabel(account.lastLoginAt))}</td><td><div class="admin-actions">${actions}</div></td></tr>`;
+    }).join('');
+    $('adminTableWrap').classList.toggle('hidden', filtered.length === 0);
+    $('adminEmptyState').classList.toggle('hidden', filtered.length !== 0);
+    $('adminEmptyText').textContent = accounts.length === 0 ? 'Regular-user accounts will appear here after registration.' : 'Try a different search or status filter.';
+  }
+  function accountInitials(account) {
+    const source = String(account?.displayName || account?.username || 'User').trim();
+    const parts = source.split(/\s+/).filter(Boolean);
+    return (parts.length > 1 ? parts[0][0] + parts[parts.length - 1][0] : source.slice(0, 2)).toUpperCase();
+  }
+  function refreshSidebarAccount(account = activeAccount) {
+    if (!account || account.role !== 'user') return;
+    $('regularAccountName').textContent = account.displayName || account.username;
+    $('regularAccountAvatar').textContent = accountInitials(account);
+    $('sidebarAccountTrigger').setAttribute('aria-label', `Account menu for ${account.displayName || account.username}`);
+  }
+  function closeSidebarAccountMenu() {
+    const host = $('sidebarAccount');
+    const menu = $('sidebarAccountMenu');
+    if (!host || !menu) return;
+    host.classList.remove('is-open');
+    menu.hidden = true;
+    $('sidebarAccountTrigger').setAttribute('aria-expanded', 'false');
+  }
+  function toggleSidebarAccountMenu() {
+    const host = $('sidebarAccount');
+    const menu = $('sidebarAccountMenu');
+    const opening = menu.hidden;
+    host.classList.toggle('is-open', opening);
+    menu.hidden = !opening;
+    $('sidebarAccountTrigger').setAttribute('aria-expanded', String(opening));
+  }
+  function showProfileFeedback(message, kind = 'error') {
+    const box = $('profileSettingsFeedback');
+    box.textContent = message;
+    box.dataset.kind = kind;
+    box.classList.add('show');
+  }
+  function clearProfileFeedback() {
+    const box = $('profileSettingsFeedback');
+    box.textContent = '';
+    box.classList.remove('show');
+    delete box.dataset.kind;
+  }
+  function openProfileSettings() {
+    if (!activeAccount || activeAccount.role !== 'user') return;
+    closeSidebarAccountMenu();
+    clearProfileFeedback();
+    $('profileDisplayName').value = activeAccount.displayName || '';
+    $('profileUsername').value = activeAccount.username || '';
+    $('profileEmail').value = activeAccount.email || '';
+    $('profileNewPassword').value = '';
+    $('profileConfirmPassword').value = '';
+    openModal('profileSettingsModal');
+    setTimeout(() => $('profileDisplayName').focus(), 0);
+  }
+  async function saveProfileSettings(event) {
+    event.preventDefault();
+    if (!activeAccount || activeAccount.role !== 'user') return;
+    const displayName = $('profileDisplayName').value.trim();
+    const username = $('profileUsername').value.trim().toLowerCase();
+    const email = $('profileEmail').value.trim();
+    const newPassword = $('profileNewPassword').value;
+    const confirmPassword = $('profileConfirmPassword').value;
+    if (!displayName) { showProfileFeedback('Please enter your full name.'); $('profileDisplayName').focus(); return; }
+    if (!/^[a-z0-9_.-]{3,24}$/i.test(username)) { showProfileFeedback('Username must be 3–24 characters using letters, numbers, dots, underscores, or hyphens.'); $('profileUsername').focus(); return; }
+    const accounts = readAccounts();
+    if (accounts.some(item => item.id !== activeAccount.id && String(item.username).toLowerCase() === username)) {
+      showProfileFeedback('That username is already in use. Please choose another.'); $('profileUsername').focus(); return;
+    }
+    if (newPassword || confirmPassword) {
+      if (newPassword.length < 6) { showProfileFeedback('A new password must contain at least 6 characters.'); $('profileNewPassword').focus(); return; }
+      if (newPassword !== confirmPassword) { showProfileFeedback('The new password confirmation does not match.'); $('profileConfirmPassword').focus(); return; }
+    }
+    const index = accounts.findIndex(item => item.id === activeAccount.id && item.role === 'user');
+    if (index < 0) { showProfileFeedback('Your account could not be found. Please sign in again.'); return; }
+    const updated = {...accounts[index], displayName, username, email, profileUpdatedAt:new Date().toISOString()};
+    if (newPassword) {
+      updated.passwordSalt = createSalt();
+      updated.passwordHash = await hashPassword(newPassword, updated.passwordSalt);
+    }
+    accounts[index] = updated;
+    if (!writeAccounts(accounts)) { showProfileFeedback('Your changes could not be saved. Check available browser storage and try again.'); return; }
+    activeAccount = updated;
+    refreshSidebarAccount(updated);
+    closeModal('profileSettingsModal');
+    showToast('Account details updated successfully.');
+  }
+
+  function openAdminWorkspace(account) {
+    activeAccount = account;
+    stopAccountIntervals();
+    $('authScreen').classList.add('hidden');
+    $('appShell').classList.add('hidden');
+    $('adminShell').classList.remove('hidden');
+    document.body.classList.remove('auth-active');
+    document.body.classList.add('admin-active');
+    $('adminSignedInName').textContent = account.displayName || 'Superuser';
+    renderAdminUsers();
+    adminRefreshInterval = setInterval(renderAdminUsers, 20000);
+  }
+  async function initializeAccountSystem() {
+    await ensureDefaultSuperuser();
+    $('authLoginTab').addEventListener('click', () => setAuthMode('login'));
+    $('authRegisterTab').addEventListener('click', () => setAuthMode('register'));
+    $('loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const username = $('loginUsername').value.trim().toLowerCase();
+      const password = $('loginPassword').value;
+      const account = readAccounts().find(item => String(item.username).toLowerCase() === username);
+      if (!account) { showAuthFeedback('Invalid username or password.', 'error'); return; }
+      const candidate = await hashPassword(password, account.passwordSalt || '');
+      if (candidate !== account.passwordHash) { showAuthFeedback('Invalid username or password.', 'error'); return; }
+      if (account.role === 'user' && account.status === 'pending') { showAuthFeedback('Your registration is still pending. The superuser must approve your account before you can sign in.', 'error'); return; }
+      if (account.role === 'user' && account.status !== 'approved') { showAuthFeedback('This account has been denied access. Please contact the administrator.', 'error'); return; }
+      account.lastLoginAt = new Date().toISOString();
+      account.lastActiveAt = account.lastLoginAt;
+      const accounts = readAccounts();
+      const index = accounts.findIndex(item => item.id === account.id);
+      if (index >= 0) accounts[index] = account;
+      if (!writeAccounts(accounts)) return;
+      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({accountId:account.id, signedInAt:account.lastLoginAt}));
+      if (account.role === 'superuser') openAdminWorkspace(account);
+      else openRegularWorkspace(account);
+    });
+    $('registerForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const displayName = $('registerName').value.trim();
+      const username = $('registerUsername').value.trim().toLowerCase();
+      const email = $('registerEmail').value.trim();
+      const password = $('registerPassword').value;
+      const confirmation = $('registerConfirm').value;
+      if (!/^[a-z0-9_.-]{3,24}$/i.test(username)) { showAuthFeedback('Username must be 3–24 characters using letters, numbers, dots, underscores, or hyphens.', 'error'); return; }
+      if (username === 'admin') { showAuthFeedback('That username is reserved for the superuser.', 'error'); return; }
+      if (password.length < 6) { showAuthFeedback('Choose a password with at least 6 characters.', 'error'); return; }
+      if (password !== confirmation) { showAuthFeedback('The password confirmation does not match.', 'error'); return; }
+      const accounts = readAccounts();
+      if (accounts.some(item => String(item.username).toLowerCase() === username)) { showAuthFeedback('That username is already registered. Please choose another.', 'error'); return; }
+      const salt = createSalt();
+      const passwordHash = await hashPassword(password, salt);
+      const newAccount = {id:makeId(), username, displayName, email, role:'user', status:'pending', passwordSalt:salt, passwordHash, createdAt:new Date().toISOString(), lastLoginAt:null, lastActiveAt:null};
+      accounts.push(newAccount);
+      if (!writeAccounts(accounts)) return;
+      $('registerForm').reset();
+      $('loginUsername').value = username;
+      setAuthMode('login');
+      showAuthFeedback('Your account request has been submitted. You can sign in after the superuser approves it.', 'success');
+    });
+    $('adminUserSearch').addEventListener('input', renderAdminUsers);
+    $('adminStatusFilter').addEventListener('change', renderAdminUsers);
+    $('adminUserRows').addEventListener('click', event => {
+      const button = event.target.closest('[data-user-action]');
+      if (!button) return;
+      const accounts = readAccounts();
+      const target = accounts.find(item => item.id === button.dataset.userId && item.role === 'user');
+      if (!target) return;
+      target.status = button.dataset.userAction === 'approve' ? 'approved' : 'denied';
+      const index = accounts.findIndex(item => item.id === target.id);
+      accounts[index] = target;
+      if (writeAccounts(accounts)) renderAdminUsers();
+    });
+    const logout = () => {
+      if (activeAccount && activeAccount.role === 'user') updateAccountActivity(activeAccount.id, new Date(Date.now() - 120000).toISOString());
+      try { sessionStorage.removeItem(SESSION_STORAGE_KEY); } catch (error) { /* Continue to sign-out screen. */ }
+      records = []; schedules = []; journals = []; triggeredReminderKeys = [];
+      showAuthScreen();
+    };
+    $('sidebarAccountTrigger').addEventListener('click', toggleSidebarAccountMenu);
+    $('openAccountSettings').addEventListener('click', openProfileSettings);
+    $('profileSettingsForm').addEventListener('submit', saveProfileSettings);
+    $('regularLogoutBtn').addEventListener('click', logout);
+    $('adminLogoutBtn').addEventListener('click', logout);
+    document.addEventListener('click', event => {
+      if (!$('sidebarAccount').contains(event.target)) closeSidebarAccountMenu();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') closeSidebarAccountMenu();
+    });
+    window.addEventListener('beforeunload', () => {
+      if (activeAccount && activeAccount.role === 'user') updateAccountActivity(activeAccount.id, new Date(Date.now() - 120000).toISOString());
+    });
+    window.addEventListener('storage', event => {
+      if (event.key !== ACCOUNTS_STORAGE_KEY || !activeAccount) return;
+      if (activeAccount.role === 'superuser') { renderAdminUsers(); return; }
+      if (activeAccount.role === 'user') {
+        const refreshedAccount = readAccounts().find(item => item.id === activeAccount.id);
+        if (!refreshedAccount || refreshedAccount.status !== 'approved') {
+          try { sessionStorage.removeItem(SESSION_STORAGE_KEY); } catch (error) { /* Continue with access revoked. */ }
+          showAuthScreen();
+          showAuthFeedback('Your account access is no longer approved. Please contact the superuser.', 'error');
+        } else activeAccount = refreshedAccount;
+      }
+    });
+    let savedSession = null;
+    try { savedSession = JSON.parse(sessionStorage.getItem(SESSION_STORAGE_KEY) || 'null'); } catch (error) { savedSession = null; }
+    const resumedAccount = savedSession ? readAccounts().find(item => item.id === savedSession.accountId) : null;
+    if (resumedAccount && (resumedAccount.role === 'superuser' || (resumedAccount.role === 'user' && resumedAccount.status === 'approved'))) {
+      if (resumedAccount.role === 'superuser') openAdminWorkspace(resumedAccount);
+      else openRegularWorkspace(resumedAccount);
+    } else {
+      try { sessionStorage.removeItem(SESSION_STORAGE_KEY); } catch (error) { /* Ignore storage cleanup errors. */ }
+      showAuthScreen();
+    }
+  }
+
   function showToast(message) {
     const toast = $('toast'); toast.textContent = message; toast.classList.add('show');
     clearTimeout(toastTimer); toastTimer = setTimeout(() => toast.classList.remove('show'), 2600);
   }
   function saveLocal() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+      localStorage.setItem(accountScopedKey(STORAGE_KEY), JSON.stringify(records));
       return true;
     } catch (error) {
       console.error(error);
@@ -4454,7 +5686,7 @@
   }
   function loadLocal() {
     try {
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      const data = JSON.parse(localStorage.getItem(accountScopedKey(STORAGE_KEY)) || '[]');
       records = Array.isArray(data) ? data.filter(r => r && r.id && r.date) : [];
     } catch (error) { records = []; }
   }
@@ -4462,13 +5694,13 @@
 
   function loadSchedules() {
     try {
-      const data = JSON.parse(localStorage.getItem(SCHEDULE_STORAGE_KEY) || '[]');
+      const data = JSON.parse(localStorage.getItem(accountScopedKey(SCHEDULE_STORAGE_KEY)) || '[]');
       schedules = Array.isArray(data) ? data.filter(item => item && item.id && item.date && item.title) : [];
     } catch (error) { schedules = []; }
   }
   function saveSchedules() {
     try {
-      localStorage.setItem(SCHEDULE_STORAGE_KEY, JSON.stringify(schedules));
+      localStorage.setItem(accountScopedKey(SCHEDULE_STORAGE_KEY), JSON.stringify(schedules));
       return true;
     } catch (error) {
       console.error(error);
@@ -4481,21 +5713,21 @@
   }
   function loadJournals() {
     try {
-      const data = JSON.parse(localStorage.getItem(JOURNAL_STORAGE_KEY) || '[]');
+      const data = JSON.parse(localStorage.getItem(accountScopedKey(JOURNAL_STORAGE_KEY)) || '[]');
       journals = Array.isArray(data) ? data.filter(entry => entry && entry.id && entry.date) : [];
     } catch (error) { journals = []; }
   }
   function saveJournals() {
-    try { localStorage.setItem(JOURNAL_STORAGE_KEY, JSON.stringify(journals)); return true; }
+    try { localStorage.setItem(accountScopedKey(JOURNAL_STORAGE_KEY), JSON.stringify(journals)); return true; }
     catch (error) { console.error(error); showToast('Could not save journal. Browser storage may be full.'); return false; }
   }
   function findJournalByDate(date) { return journals.find(entry => entry.date === date) || null; }
   function loadTriggeredReminders() {
-    try { const data = JSON.parse(localStorage.getItem(NOTIFIED_REMINDERS_KEY) || '[]'); triggeredReminderKeys = Array.isArray(data) ? data : []; }
+    try { const data = JSON.parse(localStorage.getItem(accountScopedKey(NOTIFIED_REMINDERS_KEY)) || '[]'); triggeredReminderKeys = Array.isArray(data) ? data : []; }
     catch (error) { triggeredReminderKeys = []; }
   }
   function saveTriggeredReminders() {
-    try { localStorage.setItem(NOTIFIED_REMINDERS_KEY, JSON.stringify(triggeredReminderKeys.slice(-300))); }
+    try { localStorage.setItem(accountScopedKey(NOTIFIED_REMINDERS_KEY), JSON.stringify(triggeredReminderKeys.slice(-300))); }
     catch (error) { /* Reminders can still work for this page session. */ }
   }
   function reminderMinutes(item) {
@@ -4632,6 +5864,7 @@
   }
 
   function checkScheduleReminders() {
+    if (!activeAccount || activeAccount.role !== 'user') return;
     if (!('Notification' in window) || Notification.permission !== 'granted') return;
     const now = new Date();
     let changed = false;
@@ -5328,33 +6561,47 @@
   const themeToggleIcon = $('themeToggleIcon');
   const themeToggleText = $('themeToggleText');
   const themeStatus = $('themeStatus');
+  const adminThemeToggle = $('adminThemeToggle');
+  const adminThemeToggleIcon = $('adminThemeToggleIcon');
+  const adminThemeToggleText = $('adminThemeToggleText');
 
   function refreshThemeControls() {
     if (!window.DaytrackTheme) return;
     const mode = window.DaytrackTheme.getMode();
     const resolved = document.documentElement.getAttribute('data-theme') || 'light';
     const isDark = resolved === 'dark';
-    themeToggleIcon.textContent = isDark ? '☀' : '☾';
-    themeToggleText.textContent = isDark ? 'Dark' : 'Light';
-    themeToggle.setAttribute('aria-pressed', String(isDark));
-    themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
-    themeToggle.title = `Currently ${isDark ? 'dark' : 'light'}; click to switch`;
-    themeStatus.textContent = mode === 'system' ? `SYSTEM · ${isDark ? 'DARK' : 'LIGHT'}` : 'MANUAL';
+    const nextMode = isDark ? 'light' : 'dark';
+    const applyControlState = (button, icon, label) => {
+      if (!button || !icon || !label) return;
+      icon.textContent = isDark ? '☀' : '☾';
+      label.textContent = isDark ? 'Dark' : 'Light';
+      button.setAttribute('aria-pressed', String(isDark));
+      button.setAttribute('aria-label', `Switch to ${nextMode} mode`);
+      button.title = `Currently ${isDark ? 'dark' : 'light'}; click to switch`;
+    };
+    applyControlState(themeToggle, themeToggleIcon, themeToggleText);
+    applyControlState(adminThemeToggle, adminThemeToggleIcon, adminThemeToggleText);
+    if (themeStatus) themeStatus.textContent = mode === 'system' ? `SYSTEM · ${isDark ? 'DARK' : 'LIGHT'}` : 'MANUAL';
   }
 
   if (window.DaytrackTheme) {
-    refreshThemeControls();
-    themeToggle.addEventListener('click', () => {
+    const toggleTheme = () => {
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       window.DaytrackTheme.setMode(current === 'dark' ? 'light' : 'dark');
       refreshThemeControls();
-    });
-    // Follow the operating system theme until the user manually toggles it.
+    };
+    refreshThemeControls();
+    themeToggle.addEventListener('click', toggleTheme);
+    adminThemeToggle.addEventListener('click', toggleTheme);
+    // Keep both controls in sync when system appearance changes or either control is used.
     const themeObserver = new MutationObserver(refreshThemeControls);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
-  loadLocal(); loadSchedules(); loadJournals(); loadTriggeredReminders(); render(); renderCalendar(); loadJournalEditor(localDateValue()); setView('dashboard'); renderNotificationPanel(); checkScheduleReminders();
-  window.setInterval(checkScheduleReminders, 30000);
+  initializeAccountSystem().catch(error => {
+    console.error('Daytrack account initialization failed:', error);
+    showAuthScreen();
+    showAuthFeedback('Daytrack could not initialize account storage. Check browser storage permissions and reload.', 'error');
+  });
 })();
 </script>
 <script>
@@ -5373,5 +6620,111 @@
   window.addEventListener('pageshow', sendTheme);
 })();
 </script>
+
+<div id="daytrackFormOverlay" aria-hidden="true">
+  <section class="dt-form-viewer" role="dialog" aria-modal="true" aria-label="Enlarged overtime form">
+    <div class="dt-form-viewer-stage" id="daytrackFormViewerStage" tabindex="0"></div>
+  </section>
+</div>
+<script>
+(() => {
+  const frame = document.getElementById('otFormsFrame');
+  const overlay = document.getElementById('daytrackFormOverlay');
+  const stage = document.getElementById('daytrackFormViewerStage');
+  if (!frame || !overlay || !stage) return;
+  let resizeObserver = null;
+  let previouslyFocused = null;
+  let activeFormType = null;
+
+  function copyComputedStyles(source, target) {
+    if (source.nodeType !== 1 || target.nodeType !== 1) return;
+    const computed = source.ownerDocument.defaultView.getComputedStyle(source);
+    for (let i = 0; i < computed.length; i++) {
+      const property = computed[i];
+      try { target.style.setProperty(property, computed.getPropertyValue(property), computed.getPropertyPriority(property)); }
+      catch (error) { /* Ignore a style property unsupported by this browser. */ }
+    }
+    const sourceChildren = Array.from(source.children || []);
+    const targetChildren = Array.from(target.children || []);
+    sourceChildren.forEach((child, index) => {
+      if (targetChildren[index]) copyComputedStyles(child, targetChildren[index]);
+    });
+  }
+
+  function fitPaper() {
+    const paper = stage.querySelector('.dt-form-paper-frame > .paper');
+    const holder = stage.querySelector('.dt-form-paper-frame');
+    if (!paper || !holder) return;
+    paper.style.transform = 'none';
+    const width = Math.max(paper.offsetWidth, paper.scrollWidth);
+    const height = Math.max(paper.offsetHeight, paper.scrollHeight);
+    const availableWidth = Math.max(120, stage.clientWidth - 20);
+    const availableHeight = Math.max(120, stage.clientHeight - 20);
+    if (!width || !height) return;
+    const scale = Math.min(1, availableWidth / width, availableHeight / height);
+    holder.style.width = `${width * scale}px`;
+    holder.style.height = `${height * scale}px`;
+    paper.style.transform = `scale(${scale})`;
+    paper.style.transformOrigin = 'top left';
+  }
+
+  function closeViewer() {
+    if (!overlay.classList.contains('is-open')) return;
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('dt-form-overlay-open');
+    document.documentElement.classList.remove('dt-form-overlay-open');
+    stage.replaceChildren();
+    if (resizeObserver) { resizeObserver.disconnect(); resizeObserver = null; }
+    try { frame.contentWindow.postMessage({type:'daytrack-close-ot-form-viewer'}, '*'); } catch (error) {}
+    activeFormType = null;
+    if (previouslyFocused && previouslyFocused.isConnected) previouslyFocused.focus();
+    previouslyFocused = null;
+  }
+
+  function openViewer(formType) {
+    const doc = frame.contentDocument;
+    const panelId = formType === 'halfsheet' ? 'halfsheet-panel' : 'preapproved-panel';
+    const panel = doc && doc.getElementById(panelId);
+    const sourcePaper = panel && panel.querySelector('.paper');
+    if (!sourcePaper) return;
+    const clone = sourcePaper.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+    copyComputedStyles(sourcePaper, clone);
+    // Remove the inline transform used by the small in-workspace preview, while retaining the paper's layout.
+    clone.style.setProperty('transform','none','important');
+    clone.style.setProperty('transform-origin','top left','important');
+    clone.style.setProperty('margin','0','important');
+    clone.style.setProperty('max-width','none','important');
+    clone.style.setProperty('background','#fff','important');
+    clone.style.setProperty('color','#111','important');
+    const holder=document.createElement('div');
+    holder.className='dt-form-paper-frame';
+    holder.appendChild(clone);
+    stage.replaceChildren(holder);
+    activeFormType=formType;
+    previouslyFocused=document.activeElement;
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('dt-form-overlay-open');
+    document.documentElement.classList.add('dt-form-overlay-open');
+    if (resizeObserver) resizeObserver.disconnect();
+    if (window.ResizeObserver) { resizeObserver=new ResizeObserver(fitPaper); resizeObserver.observe(stage); }
+    requestAnimationFrame(()=>{ fitPaper(); stage.focus({preventScroll:true}); });
+  }
+
+  window.addEventListener('message', event => {
+    if (event.source !== frame.contentWindow || !event.data) return;
+    if (event.data.type === 'daytrack-open-ot-form-viewer') openViewer(event.data.formType);
+  });
+  overlay.addEventListener('click', event => { if (event.target === overlay || event.target === stage) closeViewer(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && overlay.classList.contains('is-open')) { event.preventDefault(); closeViewer(); }
+  });
+  window.addEventListener('resize', () => { if (overlay.classList.contains('is-open')) fitPaper(); }, {passive:true});
+})();
+</script>
+
 </body>
 </html>
