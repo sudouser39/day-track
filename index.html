@@ -823,6 +823,23 @@
       .photo-lightbox-close:hover {
         background: rgba(255, 255, 255, 0.2);
       }
+      .photo-lightbox-download {
+        position: absolute;
+        top: 15px;
+        right: 68px;
+        min-height: 40px;
+        padding: 0 14px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .photo-lightbox-download:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
       .photo-lightbox-caption {
         position: absolute;
         top: 27px;
@@ -9771,6 +9788,13 @@
         >Attendance photo</span
       >
       <button
+        class="photo-lightbox-download hidden"
+        id="photoLightboxDownload"
+        type="button"
+      >
+        ↓ Save Image
+      </button>
+      <button
         aria-label="Close enlarged photo"
         class="photo-lightbox-close"
         id="photoLightboxClose"
@@ -9840,6 +9864,7 @@
         let conflictingScheduleId = null;
         let cameraStream = null;
         let otPreviewLightboxObjectUrl = null;
+        let activeOTSnapshotLightboxId = null;
         let toastTimer = null;
 
         const localDateValue = (date = new Date()) => {
@@ -10298,7 +10323,19 @@
                 : "No form date was entered; this snapshot is filed under the date it was saved.";
             $("otSnapshotImage").src = imageUrl;
             $("saveOTSnapshotImageBtn").dataset.snapshotId = snapshot.id;
-            openModal("otSnapshotModal");
+            const savedLabel = Number.isNaN(saved.getTime())
+              ? ""
+              : ` · Saved ${saved.toLocaleString("en-PH")}`;
+            const formLabel =
+              snapshot.title ||
+              (snapshot.formType === "halfsheet"
+                ? "Half-Sheet OT Form"
+                : "Pre-Approved OT Form");
+            openPhotoLightbox(
+              imageUrl,
+              `${formLabel}${savedLabel}`,
+              snapshot.id,
+            );
           } catch (error) {
             console.error(error);
             showToast("Could not open the saved OT form image.");
@@ -12070,8 +12107,14 @@
           $("detailPlaceholder").classList.remove("hidden");
         }
 
-        function openPhotoLightbox(src, caption = "Attendance photo") {
+        function openPhotoLightbox(
+          src,
+          caption = "Attendance photo",
+          snapshotId = null,
+        ) {
           if (!src) return;
+          activeOTSnapshotLightboxId = snapshotId;
+          $("photoLightboxDownload").classList.toggle("hidden", !snapshotId);
           $("photoLightboxImage").src = src;
           $("photoLightboxImage").alt = caption;
           $("photoLightboxCaption").textContent = caption;
@@ -12087,6 +12130,8 @@
           lightbox.classList.remove("open");
           lightbox.setAttribute("aria-hidden", "true");
           $("photoLightboxImage").removeAttribute("src");
+          activeOTSnapshotLightboxId = null;
+          $("photoLightboxDownload").classList.add("hidden");
           if (otPreviewLightboxObjectUrl) {
             URL.revokeObjectURL(otPreviewLightboxObjectUrl);
             otPreviewLightboxObjectUrl = null;
@@ -12753,6 +12798,10 @@
           downloadOTFormSnapshot(
             $("saveOTSnapshotImageBtn").dataset.snapshotId,
           );
+        });
+        $("photoLightboxDownload").addEventListener("click", () => {
+          if (activeOTSnapshotLightboxId)
+            downloadOTFormSnapshot(activeOTSnapshotLightboxId);
         });
         window.addEventListener("message", handleOTFormSnapshotMessage);
         window.addEventListener("message", (event) => {
