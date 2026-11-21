@@ -5568,20 +5568,19 @@
     const title = formType === 'preapproved' ? 'Pre-Approved OT Form' : 'Half-Sheet OT Form';
     let uploadedPath = null;
     try {
-      // Each employee keeps exactly one current snapshot per OT form type.
-      // Upload the replacement first so a failed upload never damages the existing archive.
-      const {data: existingRows, error: existingError} = await supabaseClient
+      // Find the current snapshot first so its old Storage image can be removed
+      // only after the replacement row has been saved successfully.
+      const {data: previousSnapshot, error: previousError} = await supabaseClient
         .from('ot_form_snapshots')
         .select('id, image_path')
         .eq('user_id', activeAccount.id)
         .eq('form_type', formType)
-        .order('saved_at', {ascending:false})
-        .limit(1);
-      if (existingError) throw existingError;
-      const existingSnapshot = (existingRows || [])[0] || null;
+        .maybeSingle();
+      if (previousError) throw previousError;
 
       const uploaded = await uploadDataUrlToStorage(imageData, 'ot-forms', formType);
       uploadedPath = uploaded.path;
+      const signedImageUrl = await createPrivateImageUrl(uploaded.path);
       const row = {
         user_id: activeAccount.id,
         form_type: formType,
@@ -5594,17 +5593,18 @@
         image_mime: uploaded.mime,
         saved_at: savedAt
       };
-      // The unique (user_id, form_type) index makes this an insert the first time,
-      // and an update to the existing row on every later Screenshot/Print action.
+      // The database unique key (user_id, form_type) makes each form type a
+      // single replaceable snapshot. Screenshot and Save/Print both update it.
       const {data, error} = await supabaseClient
         .from('ot_form_snapshots')
-        .upsert(row, {onConflict:'user_id,form_type'})
+        .upsert(row, {onConflict: 'user_id,form_type'})
         .select('*')
         .single();
       if (error) throw error;
-      const signedImageUrl = await createPrivateImageUrl(uploaded.path);
-      if (existingSnapshot && existingSnapshot.image_path && existingSnapshot.image_path !== uploaded.path) {
-        await removePrivateImage(existingSnapshot.image_path);
+
+      // The replacement is now safely stored; remove the superseded image.
+      if (previousSnapshot?.image_path && previousSnapshot.image_path !== uploaded.path) {
+        await removePrivateImage(previousSnapshot.image_path);
       }
       const snapshot = {
         id: data.id,
@@ -5620,13 +5620,13 @@
         imagePath: data.image_path,
         imageData: signedImageUrl
       };
-      otFormSnapshotCache = [snapshot, ...otFormSnapshotCache].sort((a, b) =>
+      otFormSnapshotCache = [snapshot, ...otFormSnapshotCache.filter(item => item.formType !== formType)].sort((a, b) =>
         String(b.savedAt || '').localeCompare(String(a.savedAt || ''))
       );
       renderCalendar();
-      const actionMessage = `Updated the existing ${title} snapshot in your online Attendance Calendar.`;
+      const actionMessage = `Updated your existing ${title} snapshot in the online Attendance Calendar.`;
       sendOTSnapshotResult(frame, requestId, true, actionMessage);
-      showToast(`${title} snapshot saved successfully. The previous copy was replaced.`);
+      showToast(`${title} snapshot updated successfully.`);
     } catch (error) {
       if (uploadedPath) await removePrivateImage(uploadedPath);
       console.error('Unable to save OT form snapshot to Supabase:', error);
