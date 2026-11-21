@@ -5445,17 +5445,25 @@
 
   async function createPrivateImageUrl(path) {
     if (!path) return '';
+    if (!supabaseClient) throw new Error('The Supabase client is unavailable. Refresh Daytrack and try again.');
     const {data, error} = await supabaseClient.storage.from(SUPABASE_STORAGE_BUCKET).createSignedUrl(path, 86400);
     if (error) throw error;
+    if (!data?.signedUrl) throw new Error('Supabase did not return a secure image link.');
     return data.signedUrl;
   }
 
   async function uploadDataUrlToStorage(dataUrl, folder, fileName) {
     if (!activeAccount || !dataUrl || !String(dataUrl).startsWith('data:image/')) throw new Error('A signed-in user and a valid image are required.');
+    if (!supabaseClient) throw new Error('The Supabase client is unavailable. Refresh Daytrack and try again.');
+    if (!['attendance', 'ot-forms'].includes(folder)) throw new Error('Invalid Daytrack image folder.');
     const response = await fetch(dataUrl);
     if (!response.ok) throw new Error('The image could not be prepared for upload.');
     const blob = await response.blob();
     const mime = blob.type || 'image/jpeg';
+    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    const maxImageBytes = 5 * 1024 * 1024; // Matches the daytrack-private Supabase bucket limit.
+    if (!allowedImageTypes.includes(mime)) throw new Error('Please use a JPEG, PNG, or WebP image.');
+    if (!blob.size || blob.size > maxImageBytes) throw new Error('This image is larger than the 5 MB cloud storage limit. Choose a smaller image and try again.');
     const extension = mime === 'image/png' ? 'png' : mime === 'image/webp' ? 'webp' : 'jpg';
     const safeName = String(fileName || 'image').replace(/[^a-z0-9_-]/gi, '-');
     const path = `${activeAccount.id}/${folder}/${safeName}-${makeId()}.${extension}`;
@@ -5470,6 +5478,11 @@
 
   async function removePrivateImage(path) {
     if (!path) return;
+    if (!supabaseClient) { console.warn('Supabase is unavailable; an old private image could not be removed.'); return; }
+    if (!activeAccount || !String(path).startsWith(`${activeAccount.id}/`)) {
+      console.warn('Skipped deleting a private image that does not belong to the signed-in user.');
+      return;
+    }
     const {error} = await supabaseClient.storage.from(SUPABASE_STORAGE_BUCKET).remove([path]);
     if (error) console.warn('Could not remove an old private image.', error);
   }
@@ -5553,7 +5566,6 @@
     const savedAt = new Date().toISOString();
     const calendarDates = formDates.length ? formDates : [localDateValue()];
     const title = formType === 'preapproved' ? 'Pre-Approved OT Form' : 'Half-Sheet OT Form';
-    const oldSnapshot = readOTFormSnapshots().find(item => item.formType === formType) || null;
     let uploadedPath = null;
     try {
       const uploaded = await uploadDataUrlToStorage(imageData, 'ot-forms', formType);
@@ -5571,9 +5583,11 @@
         image_mime: uploaded.mime,
         saved_at: savedAt
       };
+      // Keep every Screenshot/Print action as a separate archive entry so employees
+      // can backtrack to earlier OT forms instead of silently replacing the last one.
       const {data, error} = await supabaseClient
         .from('ot_form_snapshots')
-        .upsert(row, {onConflict:'user_id,form_type'})
+        .insert(row)
         .select('*')
         .single();
       if (error) throw error;
@@ -5591,14 +5605,13 @@
         imagePath: data.image_path,
         imageData: signedImageUrl
       };
-      otFormSnapshotCache = [snapshot, ...otFormSnapshotCache.filter(item => item.formType !== formType)];
-      if (oldSnapshot?.imagePath && oldSnapshot.imagePath !== uploaded.path) await removePrivateImage(oldSnapshot.imagePath);
+      otFormSnapshotCache = [snapshot, ...otFormSnapshotCache].sort((a, b) =>
+        String(b.savedAt || '').localeCompare(String(a.savedAt || ''))
+      );
       renderCalendar();
-      const actionMessage = oldSnapshot
-        ? `Replaced the existing ${title} in your online Attendance Calendar.`
-        : `Saved the ${title} to your online Attendance Calendar.`;
+      const actionMessage = `Saved a new ${title} archive copy to your online Attendance Calendar.`;
       sendOTSnapshotResult(frame, requestId, true, actionMessage);
-      showToast(oldSnapshot ? `${title} replaced successfully.` : `${title} saved successfully.`);
+      showToast(`${title} saved successfully to your archive.`);
     } catch (error) {
       if (uploadedPath) await removePrivateImage(uploadedPath);
       console.error('Unable to save OT form snapshot to Supabase:', error);
@@ -6785,9 +6798,20 @@
     document.body.style.overflow = [...document.querySelectorAll('.modal-backdrop.open')].length ? 'hidden' : '';
   }
 
-  function openDetail(id) {
+  async function openDetail(id) {
     const r = findRecord(id); if (!r) return;
     activeDetailId = id;
+    // Signed Storage URLs expire. Refresh the link whenever an attendance record is opened.
+    if (r.photoPath) {
+      try {
+        r.photo = await createPrivateImageUrl(r.photoPath);
+      } catch (error) {
+        console.error('Could not refresh the attendance photo URL:', error);
+        showToast('Could not load the attendance photo from cloud storage. Please try again.');
+      }
+      // Do not let a slower request overwrite a more recently selected record.
+      if (activeDetailId !== id) return;
+    }
     $('detailTitle').textContent = formatDate(r.date);
     $('detailSubtitle').textContent = 'Attendance record details';
     $('detailPlaceholder').classList.add('hidden');
