@@ -5615,8 +5615,16 @@
     } catch (error) {
       if (uploadedPath) await removePrivateImage(uploadedPath);
       console.error('Unable to save OT form snapshot to Supabase:', error);
-      sendOTSnapshotResult(frame, requestId, false, error.message || 'Could not save the OT form to Supabase. Please try again.');
-      showToast('Could not save the OT form to Supabase.');
+      const errorMessage = [
+        error && error.message,
+        error && error.details,
+        error && error.hint,
+        error && error.code ? `Code: ${error.code}` : ''
+      ].filter(Boolean).join(' — ');
+      const visibleError = errorMessage || 'Could not save the OT form to Supabase. Please try again.';
+      sendOTSnapshotResult(frame, requestId, false, visibleError);
+      // Show the actual Supabase error instead of hiding it behind a generic toast.
+      showToast(visibleError);
     }
   }
 
